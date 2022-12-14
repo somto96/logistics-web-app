@@ -8,15 +8,9 @@
 		"start": "next start",
 		"lint": "eslint . --ext .ts,.tsx --fix",
 		"prettier": "prettier \"**/*.+(js|json|ts|tsx|scss)\"",
-		"format": "npm run prettier -- --write",
-		"audit": "npx npm-force-resolutions && better-npm-audit audit"
-	},
-
-	"husky": {
-		"hooks": {
-			"pre-commit": "npm run lint && npm run format && npm run audit",      
-			"pre-push": ""
-		}
+		"format": "yarn prettier -- --write",
+		"audit": "npx npm-force-resolutions && better-npm-audit audit",
+		"postinstall": "husky install"
 	},
 		
 	"dependencies": {
