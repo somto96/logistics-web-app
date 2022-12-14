@@ -1,3 +1,25 @@
 {
-  "extends": "next/core-web-vitals"
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["eslint-config-next", "eslint-config-prettier"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "react/prop-types": 0,
+    "react/jsx-key": 0,
+    "no-console": 1,
+    "no-restricted-globals": 0,
+    "@typescript-eslint/no-unused-vars": 2
+  }
 }
