@@ -1,0 +1,9 @@
+node_modules
+build
+dist
+.gitignore
+.next
+.github
+.swc
+package*.json
+yarn.lock
