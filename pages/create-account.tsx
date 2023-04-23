@@ -11,13 +11,13 @@ import { useAppDispatch } from '@/utils/hooks/useReduxHooks';
 import { POST_CREATE_ACCOUNTS_ACTION } from 'store/onboarding/actions';
 import { useOnboardingState } from 'store/onboarding/slice';
 import { PageLoader } from '@/components/Reusables/Loaders/PageLoader';
-import { useReCaptcha } from 'next-recaptcha-v3';
+// import { useReCaptcha } from 'next-recaptcha-v3';
 
 const CreateAccount = () => {
   const dispatch = useAppDispatch();
   const { loading, createAccount } = useOnboardingState();
   // Import 'executeRecaptcha' using 'useReCaptcha' hook
-  const { executeRecaptcha } = useReCaptcha();
+  // const { executeRecaptcha } = useReCaptcha();
   return (
     <>
       {loading?.includes('POST_CREATE_ACCOUNTS') && <PageLoader />}
@@ -73,7 +73,7 @@ const CreateAccount = () => {
 
               // console.log('payload', payload);
               // Generate ReCaptcha token
-              await executeRecaptcha('form_submit');
+              // await executeRecaptcha('form_submit');
               // console.log('token', token);
               dispatch(POST_CREATE_ACCOUNTS_ACTION(payload));
             }}
