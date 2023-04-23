@@ -1,0 +1,7 @@
+{
+  "1091147": {
+    "active": true,
+    "notes": "CVE-2022-46175 / Json5 prototype pollution",
+    "expiry": 1667088000000
+  }
+}
