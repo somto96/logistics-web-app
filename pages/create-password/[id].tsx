@@ -4,17 +4,26 @@ import PasswordInput from '@/components/Reusables/Inputs/PasswordInput';
 import { useAppDispatch } from '@/utils/hooks/useReduxHooks';
 import { setPasswordSchema } from '@/utils/validationSchemas/onboarding/setPasswordValidations';
 import { PageLoader } from '@/components/Reusables/Loaders/PageLoader';
-import { Box, Button, Flex, SimpleGrid,} from '@chakra-ui/react';
+import { Box, Button, Flex, SimpleGrid, Image, Text } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { POST_SET_PASSWORD_ACTION } from 'store/onboarding/actions';
 import { useOnboardingState } from 'store/onboarding/slice';
+import { Notice } from '@/components/Reusables/Inputs/Notice';
 
 const SetPassword = () => {
-    const router = useRouter();
-    const dispatch = useAppDispatch();
-    const { loading } = useOnboardingState();
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { loading, setPassword } = useOnboardingState();
+  const [submitted, setSubmitted] = useState<boolean>(false);
+  const [showNotice, setShowNotice] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (submitted) {
+      setPassword?.successStatus && setShowNotice(true);
+    }
+  }, [setPassword?.successStatus, submitted]);
   return (
     <>
       {loading?.includes('POST_SET_PASSWORD') && <PageLoader />}
@@ -55,14 +64,14 @@ const SetPassword = () => {
               const payload = {
                 companyId: router.query?.id,
                 password: values.password,
-                confirmPassword: values.confirmPassword
+                confirmPassword: values.confirmPassword,
               };
 
-            //   console.log('payload', payload);
+              //   console.log('payload', payload);
               dispatch(POST_SET_PASSWORD_ACTION(payload));
+              setSubmitted(true);
             }}
-            validationSchema={setPasswordSchema}
-          >
+            validationSchema={setPasswordSchema}>
             {({
               handleChange,
               handleBlur,
@@ -123,6 +132,31 @@ const SetPassword = () => {
           </Formik>
         </CardWrapper>
       </Box>
+      {showNotice && (
+        <Notice
+          placement={'bottom'}
+          onClose={() => setShowNotice(false)}
+          isOpen={showNotice}
+          title={`Welcome ${setPassword?.successMessage?.action?.companyName}`}
+          body={
+            <Flex
+              flexDir={'column'}
+              alignItems={'center'}
+              justifyContent={'center'}
+              color="brand.white"
+              gap={10}
+              mb={8}>
+              <Image
+                src="../images/svgs/under-construction.svg"
+                w={'auto'}
+                h={'200px'}
+                alt="under-construction"
+              />
+              <Text textAlign={'center'}>Your dashboard is still under construction</Text>
+            </Flex>
+          }
+        />
+      )}
     </>
   );
 };

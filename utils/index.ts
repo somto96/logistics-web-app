@@ -23,7 +23,7 @@ export const WEBSITE_MENU_LINKS: WebsiteMenuLinks[] = [
   {
     title: 'Sign in',
     id: 'sign-in',
-    path: '/',
+    path: '/sign-in',
   },
 ];
 

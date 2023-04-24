@@ -11,16 +11,16 @@ const dataObject = {
   createAccount: {
     successStatus: false,
     successMessage: {
-        title: "",
-        action: ""
+      title: '',
+      action: '',
     },
     errorMessage: '',
   },
   setPassword: {
     successStatus: false,
     successMessage: {
-        title: "",
-        action: ""
+      title: '',
+      action: '',
     },
     errorMessage: '',
   },

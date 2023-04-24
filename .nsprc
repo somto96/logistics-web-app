@@ -1,7 +1,13 @@
 {
   "1091147": {
     "active": true,
-    "notes": "CVE-2022-46175 / Json5 prototype pollution",
+    "notes": "CVE-2022-46175 / Json5 / prototype pollution / patched version: 1.0.2",
+    "expiry": 1667088000000
+  },
+
+  "1091814 ": {
+    "active": true,
+    "notes": " CVE-2023-2251 / yaml / Uncaught Exception in yaml / patched version: >=2.2.2 ",
     "expiry": 1667088000000
   }
 }

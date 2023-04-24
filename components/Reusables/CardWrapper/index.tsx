@@ -2,13 +2,15 @@ import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 
 interface CardWrapperProps {
-  title: string;
-  pageTitle: string;
-  width: any;
+  title?: string;
+  subtitle?: string;
+  pageTitle?: string;
+  align?: string | any;
+  width?: any;
   children: ReactNode;
 }
 
-export const CardWrapper = ({ title, pageTitle, width, children }: CardWrapperProps) => {
+export const CardWrapper = ({ title, pageTitle, subtitle, align="center", width, children }: CardWrapperProps) => {
   return (
     <Flex
       alignItems={'center'}
@@ -35,13 +37,14 @@ export const CardWrapper = ({ title, pageTitle, width, children }: CardWrapperPr
         <Flex
           flexDir={'row'}
           alignItems={'center'}
-          justifyContent={'center'}
+          justifyContent={align === "center" ? "center" : `flex-${align}`}
           borderBottom={'1px'}
           borderColor="#BDBDBD"
           py={5}
-          px={3}
+          px={5}
           >
-          <Text textAlign={'center'}>{title}</Text>
+          <Text color={"brand.text"} textAlign={align} fontWeight={600} fontSize={"22px"} lineHeight={"20px"} letterSpacing={"0.03em"}>{title}</Text>
+          <Text color={"brand.text"} fontSize={"18px"} lineHeight={"20px"} letterSpacing={"0.02em"} textAlign={align}>{subtitle}</Text>
         </Flex>
         <Box p={5}>{children}</Box>
       </Flex>

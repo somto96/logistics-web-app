@@ -33,7 +33,7 @@ const CreateAccount = () => {
         p={{ base: '10px', md: '10px' }}>
         <CardWrapper
           pageTitle={'Create Account'}
-          title={'Welcome, get started on joining our growing members'}
+          subtitle={'Welcome, get started on joining our growing members'}
           width={{ sm: '515px', md: '818px' }}>
           {createAccount?.successStatus && (
             <Box
@@ -52,8 +52,8 @@ const CreateAccount = () => {
           )}
           <Formik
             initialValues={{
-              firstname: '',
-              lastname: '',
+              contactFullName: '',
+              companyName: '',
               phoneNumber: '',
               email: '',
               address: '',
@@ -62,8 +62,8 @@ const CreateAccount = () => {
             }}
             onSubmit={async values => {
               const payload = {
-                firstName: values.firstname,
-                lastName: values.lastname,
+                contactFullName: values.contactFullName,
+                companyName: values.companyName,
                 address: values.address,
                 city: values.city,
                 state: values.state,
@@ -93,23 +93,23 @@ const CreateAccount = () => {
                 <Form>
                   <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={10} p={5}>
                     <TextInput
-                      name="firstname"
-                      label="FIRST NAME"
-                      value={values?.firstname}
+                      name="contactFullName"
+                      label="CONTACT FULLNAME"
+                      value={values?.contactFullName}
                       handleChange={handleChange}
                       handleBlur={handleBlur}
-                      hasError={errors?.firstname && touched?.firstname}
-                      error={errors?.firstname}>
+                      hasError={errors?.contactFullName && touched?.contactFullName}
+                      error={errors?.contactFullName}>
                       <Image src={'/images/svgs/form-user-icon.svg'} alt={'avatar-icon'} />
                     </TextInput>
                     <TextInput
-                      name="lastname"
-                      label="LAST NAME"
-                      value={values?.lastname}
+                      name="companyName"
+                      label="COMPANY NAME"
+                      value={values?.companyName}
                       handleChange={handleChange}
                       handleBlur={handleBlur}
-                      hasError={errors?.lastname && touched?.lastname}
-                      error={errors?.lastname}>
+                      hasError={errors?.companyName && touched?.companyName}
+                      error={errors?.companyName}>
                       <Image src="images/svgs/form-user-icon.svg" alt={'avatar-icon'} />
                     </TextInput>
                   </SimpleGrid>
