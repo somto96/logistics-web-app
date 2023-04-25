@@ -31,9 +31,9 @@ const Signin = () => {
 
   useEffect(() => {
     if (submitted) {
-      loginData?.successStatus && setShowNotice(true);
+      loginData?.successStatus && !loading?.includes('POST_LOGIN')  && setShowNotice(true);
     }
-  }, [loginData?.successStatus, submitted]);
+  }, [loading, loginData?.successStatus, submitted]);
   return (
     <>
       {loading?.includes('POST_LOGIN') && <PageLoader />}
@@ -63,7 +63,6 @@ const Signin = () => {
                 password: values?.password,
               };
 
-              console.log('payload', payload);
               dispatch(POST_LOGIN_ACTION(payload));
               setSubmitted(true);
             }}
@@ -81,7 +80,7 @@ const Signin = () => {
             }) => {
               return (
                 <Form>
-                  <SimpleGrid columns={1} spacing={10} p={5}>
+                  <SimpleGrid columns={1} spacing={10} p={{base: 2, md: 5}}>
                     <TextInput
                       name="email"
                       label="COMPANY EMAIL"
@@ -93,7 +92,7 @@ const Signin = () => {
                       <Image src="images/svgs/form-mail-icon.svg" alt={'mail-icon'} />
                     </TextInput>
                   </SimpleGrid>
-                  <SimpleGrid columns={1} spacing={10} p={5}>
+                  <SimpleGrid columns={1} spacing={10} p={{base: 2, md: 5}}>
                     <Box gap={2}>
                       <PasswordInput
                         name="password"
@@ -104,10 +103,9 @@ const Signin = () => {
                         hasError={errors?.password && touched?.password}
                         error={errors?.password}
                       />
-                      <Flex alignItems={'center'} justifyContent={'space-between'} mt={2}>
+                      <Flex  alignItems={'center'} justifyContent={'space-between'} mt={2} gap={3}>
                         <Stack spacing={5} direction="row">
                           <Checkbox
-                            colorScheme="blackAlpha"
                             onChange={() => setIsChecked(!isChecked)}
                             checked={isChecked}>
                             <Text
@@ -149,7 +147,7 @@ const Signin = () => {
                         borderRadius: '20px',
                         lineHeight: '22px',
                       }}
-                      disabled={!(isValid && dirty) || !isChecked}>
+                      disabled={!(isValid && dirty)}>
                       Sign in
                     </Button>
                   </Flex>

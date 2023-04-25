@@ -46,7 +46,7 @@ export const CardWrapper = ({ title, pageTitle, subtitle, align="center", width,
           <Text color={"brand.text"} textAlign={align} fontWeight={600} fontSize={"22px"} lineHeight={"20px"} letterSpacing={"0.03em"}>{title}</Text>
           <Text color={"brand.text"} fontSize={"18px"} lineHeight={"20px"} letterSpacing={"0.02em"} textAlign={align}>{subtitle}</Text>
         </Flex>
-        <Box p={5}>{children}</Box>
+        <Box p={{ base: 3, md: 5}}>{children}</Box>
       </Flex>
     </Flex>
   );
