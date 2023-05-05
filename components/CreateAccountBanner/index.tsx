@@ -9,7 +9,11 @@ export const CreateAccountBanner = () => {
       bgImage={"url('../../images/pngs/create-account-banner.png')"}
       bgPosition="center"
       bgSize="cover"
-      p={{ base: "2rem", md: "5rem"}}>
+      p={{ base: '2rem', md: '5rem' }}
+      data-aos="fade-up"
+      data-aos-duration="3000"
+      data-aos-delay="0"
+      >
       <Flex flexDir={'column'} alignItems={'start'} justifyContent={'center'}>
         <Flex flexDir={'column'} alignItems={'center'} justifyContent={'center'}>
           <Text fontWeight={500} fontSize="20px" lineHeight="22px" color="brand.black" mb={3}>
@@ -18,7 +22,7 @@ export const CreateAccountBanner = () => {
           <Button
             bg="brand.black"
             color="brand.white"
-            onClick={() => router.push("/create-account")}
+            onClick={() => router.push('/create-account')}
             p="5"
             fontSize="14px"
             _hover={{

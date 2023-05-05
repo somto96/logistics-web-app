@@ -24,6 +24,9 @@ export const Footer = () => {
       bgPosition="center"
       bgSize="cover">
       <Flex
+        data-aos="fade-down"
+        data-aos-easing="linear"
+        data-aos-duration="11000"
         flexDir={isLargerThan800 ? 'row' : 'column'}
         flexWrap={'wrap'}
         alignItems={'flex-start'}
@@ -39,7 +42,7 @@ export const Footer = () => {
             lineHeight={'20px'}
             letterSpacing={'0.03em'}
             color={'brand.white'}>
-            ImperiumLogistics
+            Imperium Logistics
           </Heading>
         </Flex>
         <Flex flexDir={'column'} alignItems={'flex-start'} gap={3}>
@@ -168,6 +171,9 @@ export const Footer = () => {
         </Flex>
       </Flex>
       <Flex
+        data-aos="fade-up"
+        data-aos-easing="linear"
+        data-aos-duration="13000"
         flexDir={'row'}
         flexWrap={'wrap'}
         alignItems={'center'}

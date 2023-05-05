@@ -7,8 +7,14 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { ReCaptchaProvider } from 'next-recaptcha-v3';
+import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    const AOS = require('aos');
+    AOS.init();
+    // AOS.refresh();
+  });
   return (
     <Provider store={store}>
       <ReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}>

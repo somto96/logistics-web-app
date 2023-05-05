@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import Carousel from 'nuka-carousel';
 import { sliderData } from './index';
-import { Property } from 'csstype'
+import { Property } from 'csstype';
 
 export const HeroSection = () => {
   const [isLargerThan800] = useMediaQuery('(min-width: 800px)');
@@ -28,7 +28,8 @@ export const HeroSection = () => {
               <Box onClick={previousSlide} cursor="pointer" p={10}>
                 <Image
                   src="/images/svgs/left-icon.svg"
-                  alt="test"
+                  loading={'lazy'}
+                  alt="left-icon"
                   sx={{
                     cursor: 'pointer',
                   }}
@@ -44,7 +45,8 @@ export const HeroSection = () => {
               <Box onClick={() => goToSlide(currentSlide + 1)} cursor="pointer" p={10}>
                 <Image
                   src="/images/svgs/right-icon.svg"
-                  alt="test"
+                  loading={'lazy'}
+                  alt="right-icon"
                   sx={{
                     cursor: 'pointer',
                   }}
@@ -74,10 +76,10 @@ export const HeroSection = () => {
               p={{ base: '10px', md: '10px' }}>
               <Box pos="relative" h={'100%'}>
                 <Box pos="absolute" top={0} right={0} mt={12}>
-                  <Image src="/images/svgs/corner-tr.svg" alt="corner-tr" />
+                  <Image loading={'lazy'} src="/images/svgs/corner-tr.svg" alt="corner-tr" />
                 </Box>
                 <Box pos="absolute" bottom={0} left={0}>
-                  <Image src="/images/svgs/corner-bl.svg" alt="corner-bl" />
+                  <Image loading={'lazy'} src="/images/svgs/corner-bl.svg" alt="corner-bl" />
                 </Box>
                 <Flex
                   alignItems={'center'}
@@ -101,7 +103,7 @@ export const HeroSection = () => {
                     letterSpacing="0.05em">
                     Integrate our easy-to-use logistic platform to your businesses
                   </Text>
-                  <Box w={{ base: "100%", sm: "100%", md: "50%" }}>
+                  <Box w={{ base: '100%', sm: '100%', md: '50%' }}>
                     <Box
                       bgColor="rgba(242, 242, 242, 0.75)"
                       borderRadius="10px"
@@ -157,7 +159,7 @@ export const HeroSection = () => {
                                 color: 'brand.white',
                               }}
                               // onClick={() => console.log('test')}
-                              >
+                            >
                               {'TRACK'}
                             </Button>
                           </InputRightElement>

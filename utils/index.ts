@@ -18,7 +18,7 @@ export const WEBSITE_MENU_LINKS: WebsiteMenuLinks[] = [
   {
     title: 'About us',
     id: 'about-us',
-    path: '/',
+    path: '/about-us',
   },
   {
     title: 'Sign in',
@@ -31,7 +31,7 @@ export const QUICK_LINKS = [
   {
     id: 'about-us',
     title: 'About us',
-    path: '/',
+    path: '/about-us',
   },
   {
     id: 'track',
@@ -283,6 +283,78 @@ export const STATES = [
     id: 36,
     label: "Zamfara",
     value: "Zamfara"
+  },
+]
+
+export const PORTFOLIO = [
+  {
+    id: 1,
+    title: "Our clients",
+    description: "Our clients grows on a daily basis. you are welcome to join us.",
+    numbers: "1.2M+"
+  },
+  {
+    id: 2,
+    title: "Our riders",
+    description: "Readily available riders to complete delivery to customers",
+    numbers: "500k+"
+  },
+  {
+    id: 3,
+    title: "Completed delivery",
+    description: "We have completed and still completing deliveries everywhere",
+    numbers: "12.3M+"
+  },
+]
+
+export const TEAMS = [
+  {
+    id: 1,
+    url: "images/pngs/profile-1.png",
+    name: "Kolade Johnson",
+    position: "Chairman"
+  },
+  {
+    id: 2,
+    url: "images/pngs/profile-2.png",
+    name: "Pete Obi",
+    position: "President"
+  },
+  {
+    id: 3,
+    url: "images/pngs/profile-3.png",
+    name: "Vanessa Doeh",
+    position: "Vice President"
+  },
+  {
+    id: 4,
+    url: "images/pngs/profile-4.png",
+    name: "Ramsey Steve",
+    position: "Treasurer"
+  },
+  {
+    id: 5,
+    url: "images/pngs/profile-1.png",
+    name: "Dumebi Austin",
+    position: "Accountant"
+  },
+  {
+    id: 6,
+    url: "images/pngs/profile-2.png",
+    name: "Katie Johnson",
+    position: "Logistic Director"
+  },
+  {
+    id: 7,
+    url: "images/pngs/profile-3.png",
+    name: "John Doe",
+    position: "I.T Expert"
+  },
+  {
+    id: 8,
+    url: "images/pngs/profile-2.png",
+    name: "Rita Kolade",
+    position: "Operation Lead"
   },
 ]
 

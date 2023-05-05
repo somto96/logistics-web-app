@@ -1,7 +1,13 @@
 import React from 'react';
 import { Flex } from '@chakra-ui/react';
 
-export const PageLoader = () => {
+export type PageLoaderProps = {
+  message?: string;
+}
+
+export const PageLoader = ({
+  message= "Please wait"
+}: PageLoaderProps) => {
   return (
     <Flex
       position={'fixed'}
@@ -16,7 +22,7 @@ export const PageLoader = () => {
       zIndex={998}
       overflow={'hidden'}
       backdropFilter={'blur(4px)'}>
-        Please wait...
+        {message}
     </Flex>
   );
 };

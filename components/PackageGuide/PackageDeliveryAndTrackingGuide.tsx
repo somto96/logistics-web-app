@@ -11,7 +11,7 @@ export const PackageDeliveryAndTrackingGuide = () => {
         mb={5}
         px={{
           base: '2rem',
-          sm: "2rem",
+          sm: '2rem',
           md: '2rem',
         }}>
         <Text
@@ -19,10 +19,19 @@ export const PackageDeliveryAndTrackingGuide = () => {
           fontWeight={600}
           fontSize="26px"
           lineHeight="31px"
-          color="brand.black">
+          color="brand.black"
+          data-aos="fade-up"
+          data-aos-duration="1500"
+          data-aos-delay="0">
           Package Delivery & Tracking
         </Text>
-        <Image src={'../../images/pngs/track-guide.png'} alt="package delivery & tracking guide" />
+        <Image
+          src={'../../images/pngs/track-guide.png'}
+          alt="package delivery & tracking guide"
+          data-aos="fade-down"
+          data-aos-duration="1500"
+          data-aos-delay="0"
+        />
       </Flex>
     </>
   );

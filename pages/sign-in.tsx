@@ -122,7 +122,7 @@ const Signin = () => {
                           fontSize={'14px'}
                           lineHeight={'16px'}
                           letterSpacing={'0.02em'}
-                          href={'/forgot-password'}
+                          href={'/forgot-password/enter-email'}
                           style={{
                             color: 'brand.text',
                             textDecoration: 'underline',
@@ -151,14 +151,11 @@ const Signin = () => {
                       Sign in
                     </Button>
                   </Flex>
-                  <Text color={'#4F4F4F'} letterSpacing={'0.02em'} textAlign={'center'}>
+                  <Text color={'#4F4F4F'} letterSpacing={'0.02em'} textAlign={'center'} fontSize={'14px'} lineHeight={'16px'}>
                     New member?{' '}
                     <Link
                       color={'brand.text'}
-                      fontSize={'16px'}
-                      lineHeight={'20px'}
                       fontWeight={600}
-                      letterSpacing={'0.03em'}
                       href={'/create-account'}
                       style={{
                         color: 'brand.text',

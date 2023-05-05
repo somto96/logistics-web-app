@@ -21,10 +21,10 @@ export const TestimonialSection = () => {
       p={10}
       position={'relative'}>
       <Box pos="absolute" top={0} left={0} zIndex={isLargerThan800px ? 1 : -1}>
-        <Image src="/images/svgs/blob-tl.svg" alt="blob-tl" />
+        <Image loading={'lazy'} src="/images/svgs/blob-tl.svg" alt="blob-tl" />
       </Box>
       <Box pos="absolute" bottom={0} right={0} zIndex={isLargerThan800px ? 1 : -1}>
-        <Image src="/images/svgs/ellipse-br.svg" alt="blob-tl" />
+        <Image loading={'lazy'} src="/images/svgs/ellipse-br.svg" alt="blob-tl" />
       </Box>
       <Text
         fontWeight={600}
@@ -33,7 +33,10 @@ export const TestimonialSection = () => {
         color={'brand.text'}
         mb={5}
         zIndex={5}
-        textAlign={'center'}>
+        textAlign={'center'}
+        data-aos="fade-down"
+        data-aos-duration="5000"
+        data-aos-delay="0">
         What our happy clients are saying
       </Text>
       <Flex
@@ -69,10 +72,7 @@ export const TestimonialSection = () => {
                     onClick={previousSlide}
                     cursor="pointer"
                     color={currentSlide === 0 ? '#E0E0E0' : 'brand.text'}>
-                    <Image
-                      src="/images/svgs/testimonial-slide-left.svg"
-                      alt="test"
-                    />
+                    <Image src="/images/svgs/testimonial-slide-left.svg" alt="test" />
                   </Box>
                 </Flex>
               );
@@ -89,18 +89,25 @@ export const TestimonialSection = () => {
                   cursor="pointer"
                   mr={'-60px'}>
                   <Box onClick={() => goToSlide(currentSlide + 1)} cursor="pointer">
-                    <Image
-                      src="/images/svgs/testimonial-slide-right.svg"
-                      alt="test"
-                    />
+                    <Image src="/images/svgs/testimonial-slide-right.svg" alt="test" />
                   </Box>
                 </Flex>
               );
             }
             return null;
           }}>
-          {testimonialData?.map((item) => {
-            return <TestimonialCard key={item?.id} data={item} />;
+          {testimonialData?.map((item, index) => {
+            return (
+              <TestimonialCard
+                key={item?.id}
+                data={item}
+                animation={{
+                  dataAOS: 'fade-up',
+                  dataAOSDuration: `${(index + 1) * 6000}`,
+                  dataAOSDelay: '0',
+                }}
+              />
+            );
           })}
         </Carousel>
       </Flex>

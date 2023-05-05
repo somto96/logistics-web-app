@@ -9,8 +9,13 @@ interface TestimonialCardProps {
     company: string;
     avatar: string;
   };
+  animation: {
+    dataAOS: string;
+    dataAOSDuration: string;
+    dataAOSDelay: string;
+  }
 }
-export const TestimonialCard = ({ data }: TestimonialCardProps) => {
+export const TestimonialCard = ({ data, animation }: TestimonialCardProps) => {
   return (
     <Flex
       bg={'brand.white'}
@@ -21,7 +26,11 @@ export const TestimonialCard = ({ data }: TestimonialCardProps) => {
       borderRadius={'8px'}
       border="1px"
       borderColor="rgba(0, 0, 0, 0.1)"
-      ml={{ md: '0px', base: '11px' }}>
+      ml={{ md: '0px', base: '11px' }}
+      data-aos={animation?.dataAOS}
+      data-aos-duration={animation?.dataAOSDuration}
+      data-aos-delay={animation?.dataAOSDelay} 
+      >
       <Flex
         flexDir={'row'}
         w={'100%'}
