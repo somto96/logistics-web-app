@@ -27,7 +27,7 @@ const ResetPassword = () => {
   return (
     <>
       {loading?.includes('POST_SET_PASSWORD') && <PageLoader />}
-      <Header showMenuList />
+      <Header src="../images/svgs/header-logo.svg" background={"transparent"} showMenuList />
       <Box
         w="100%"
         h="100vh"

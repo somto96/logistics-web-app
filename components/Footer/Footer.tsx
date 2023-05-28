@@ -36,14 +36,7 @@ export const Footer = () => {
         borderBottom={'1px'}
         borderColor="rgba(232, 232, 232, 0.5)">
         <Flex flexDir={'column'} alignItems={'flex-start'}>
-          <Heading
-            fontWeight={700}
-            fontSize={'18px'}
-            lineHeight={'20px'}
-            letterSpacing={'0.03em'}
-            color={'brand.white'}>
-            Imperium Logistics
-          </Heading>
+          <Image loading="lazy" src="images/svgs/header-logo.svg" alt="header-logo" />
         </Flex>
         <Flex flexDir={'column'} alignItems={'flex-start'} gap={3}>
           <Heading

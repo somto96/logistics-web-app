@@ -4,8 +4,8 @@ const emailRegex =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export const createAccountSchema = Yup.object({
-  contactFullName: Yup.string().required('Please enter your first name'),
-  companyName: Yup.string().required('Please enter your last name'),
+  contactFullName: Yup.string().required('Please enter your fullname'),
+  companyName: Yup.string().required("Please enter your company's name"),
   phoneNumber: Yup.string().required('Please enter your phone number'),
   email: Yup.string()
     .trim()

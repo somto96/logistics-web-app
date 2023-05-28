@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { ReCaptchaProvider } from 'next-recaptcha-v3';
 import { useEffect } from 'react';
+// import 'react-toastify/dist/ReactToastify.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {

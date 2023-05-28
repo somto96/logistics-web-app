@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { OnboardingState } from '../interfaces';
 import { RootState } from '../store';
 import { useAppSelector } from '../../utils/hooks/useReduxHooks';
-import { removeLoadingState } from '@/utils/helperFunctions';
+import { removeLoadingState } from '../../utils/helperFunctions';
 import { POST_CREATE_ACCOUNTS_ACTION, POST_SET_PASSWORD_ACTION } from './actions';
 import { triggerCreateAccounts, triggerSetPassword } from './assistFunctions';
 

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { AuthState } from '../interfaces';
 import { RootState } from '../store';
 import { useAppSelector } from '../../utils/hooks/useReduxHooks';
-import { removeLoadingState } from '@/utils/helperFunctions';
+import { removeLoadingState } from '../../utils/helperFunctions';
 import { POST_LOGIN_ACTION } from './actions';
 import { triggerLogin } from './assistFunctions';
 

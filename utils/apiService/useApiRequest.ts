@@ -6,7 +6,7 @@ const makeRequest = axios.create({
 
 export const useApiRequest = () => {
   // Add a request interceptor
-  makeRequest.interceptors.request.use(
+  makeRequest?.interceptors?.request.use(
     async config => {
       const userToken = localStorage.getItem('token');
       if (!userToken) return config;

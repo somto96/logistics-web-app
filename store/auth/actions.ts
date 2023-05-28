@@ -10,7 +10,7 @@ export const POST_LOGIN_ACTION = createAsyncThunk(
     try {
       const response = await makeRequest.post(POST_LOGIN, payload);
       return response;
-    } catch (error) {
+    } catch (error: any) {
       return error;
     }
   }

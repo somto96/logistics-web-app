@@ -11,7 +11,7 @@
 		"format": "yarn prettier -- --write",
 		"audit": "npx npm-force-resolutions && better-npm-audit audit",
 		"postinstall": "husky install",
-		"test": "jest --watchAll"
+		"test": "jest"
 	},
 	"dependencies": {
 		"@chakra-ui/react": "2.4.3",
@@ -44,6 +44,7 @@
 		"@testing-library/dom": "8.19.0",
 		"@testing-library/jest-dom": "5.16.5",
 		"@testing-library/react": "13.4.0",
+		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "14.4.3",
 		"@types/jest": "29.2.4",
 		"@typescript-eslint/eslint-plugin": "5.46.1",

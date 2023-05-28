@@ -1,7 +1,7 @@
 import {
   Flex,
   Box,
-  Heading,
+  // Heading,
   Button,
   Link,
   Image,
@@ -25,6 +25,7 @@ type HeaderProps = {
   route?: string;
   pageName?: string;
   position?: string | any;
+  src ?: string
 };
 export const Header = ({
   showMenuList = false,
@@ -33,6 +34,7 @@ export const Header = ({
   background = "brand.black",
   isCurrentPage = false,
   position = "fixed",
+  src = "images/svgs/header-logo.svg",
   route,
   pageName,
 }: HeaderProps) => {
@@ -52,9 +54,7 @@ export const Header = ({
           py={1}
           justifyContent="space-between">
           <Box p="2" onClick={() => router.push('/')} cursor={'pointer'}>
-            <Heading size="md" color="brand.white" fontSize="22px">
-              Imperium Logistics
-            </Heading>
+            <Image loading="lazy" src={src} alt="header-logo" />
           </Box>
           {isLargerThan800 && showMenuList && (
             <Flex flexDir="row" justifyContent="space-between" alignItems="center" gap="5">

@@ -16,7 +16,7 @@ const EnterEmail = () => {
 
   return (
     <>
-      <Header />
+      <Header src="../images/svgs/header-logo.svg" background={"transparent"} />
 
       <Box
         w="100%"

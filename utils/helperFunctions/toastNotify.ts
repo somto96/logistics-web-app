@@ -1,5 +1,4 @@
 import { toast, ToastPosition, ToastOptions } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 interface ToastNotifyProps {
     type?: string,

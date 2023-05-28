@@ -1,6 +1,6 @@
-import { removeLoadingState } from '@/utils/helperFunctions';
-import { ToastNotify } from '@/utils/helperFunctions/toastNotify';
-import { AuthState } from 'store/interfaces';
+import { removeLoadingState } from '../../utils/helperFunctions';
+import { ToastNotify } from '../../utils/helperFunctions/toastNotify';
+import { AuthState } from '../interfaces';
 
 export const triggerLogin = (state: AuthState, action: any) => {
   state.loading = removeLoadingState(state.loading, 'POST_LOGIN');

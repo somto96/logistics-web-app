@@ -1,5 +1,5 @@
-import { removeLoadingState } from '@/utils/helperFunctions';
-import { ToastNotify } from '@/utils/helperFunctions/toastNotify';
+import { removeLoadingState } from '../../utils/helperFunctions';
+import { ToastNotify } from '../../utils/helperFunctions/toastNotify';
 import { OnboardingState } from 'store/interfaces';
 
 export const triggerCreateAccounts = (state: OnboardingState, action: any) => {
