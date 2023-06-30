@@ -5,10 +5,10 @@ import { Box } from '@chakra-ui/react';
 
 export type AuthLayoutProps = {
   children: React.ReactNode;
-  bg: string;
+  bg?: string;
 };
 
-export const AuthLayout = ({ children, bg }: AuthLayoutProps) => {
+export const AuthLayout = ({ children, bg="#FFFFFF" }: AuthLayoutProps) => {
   const router = useRouter();
   const { loginData } = useAuthState();
 

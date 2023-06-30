@@ -12,7 +12,7 @@ const User = () => {
   // const dashboard = useDashboardState();
   const [isLargerThan800] = useMediaQuery('(min-width: 800px)');
   return (
-    <AuthLayout bg={'brand.white'}>
+    <AuthLayout bg='brand.white'>
       <DashboardHeader user={loginData?.user?.companyName} />
       <Grid h={'100%'} templateRows="repeat(1, 1fr)" templateColumns="repeat(10, 1fr)">
         {isLargerThan800 && (
