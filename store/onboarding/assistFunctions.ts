@@ -43,7 +43,9 @@ export const triggerSetPassword = (state: OnboardingState, action: any) => {
         title: action?.payload?.data?.message,
         action: action?.payload?.data?.responseObject
       },
+      
     };
+    localStorage.setItem('token', action?.payload?.data?.responseObject?.token)
     ToastNotify({
       type: 'success',
       message: action?.payload?.data?.message,

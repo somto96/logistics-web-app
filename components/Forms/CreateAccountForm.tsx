@@ -130,7 +130,7 @@ export const CreateAccountForm = () => {
                     borderRadius: '20px',
                     lineHeight: '22px',
                   }}
-                  disabled={!(isValid && dirty)}>
+                  isDisabled={!(isValid && dirty)}>
                   Create Account
                 </Button>
               </Flex>

@@ -27,6 +27,7 @@ interface SelectFieldProps {
   value?: any;
   error?: string;
   hasError?: boolean | any;
+  iconSrc?: string;
 }
 
 export const SelectField = ({
@@ -37,6 +38,7 @@ export const SelectField = ({
   onChange,
   value,
   hasError,
+  iconSrc = "images/svgs/ChevronDownIcon.svg"
 }: SelectFieldProps) => {
   const [selectedOption, setSelectedOption] = useState<Option | null>(
     options.find(option => option.value === value) || null
@@ -90,7 +92,7 @@ export const SelectField = ({
               w="100%"
               as={Button}
               textAlign={'left'}
-              rightIcon={<Image src="images/svgs/ChevronDownIcon.svg" alt="ChevronDownIcon" />}>
+              rightIcon={<Image src={iconSrc}alt="ChevronDownIcon" />}>
               {selectedOption?.label || placeholder}
             </MenuButton>
             <MenuList

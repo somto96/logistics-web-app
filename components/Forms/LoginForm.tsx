@@ -105,7 +105,7 @@ export const LoginForm = () => {
                   borderRadius: '20px',
                   lineHeight: '22px',
                 }}
-                disabled={!(isValid && dirty)}>
+                isDisabled={!(isValid && dirty)}>
                 Sign in
               </Button>
             </Flex>

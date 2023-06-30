@@ -2,7 +2,8 @@ import { PageLoader } from '@/components/Reusables/Loaders/PageLoader';
 import { useAppDispatch } from '@/utils/hooks/useReduxHooks';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import { resetAuthState } from 'store/auth/slice';
+// import { resetAuthState } from 'store/auth/slice';
+import { resetStore } from 'store/reset';
 
 const Logout = () => {
   const dispatch = useAppDispatch();
@@ -10,7 +11,7 @@ const Logout = () => {
 
   useEffect(() => {
     // Clear all states
-    dispatch(resetAuthState());
+    resetStore(dispatch);
 
     // Clear all tokens
     localStorage.clear();

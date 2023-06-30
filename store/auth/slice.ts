@@ -1,15 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { AuthState } from '../interfaces';
 import { RootState } from '../store';
-import { useAppSelector } from '../../utils/hooks/useReduxHooks';
-import { removeLoadingState } from '../../utils/helperFunctions';
-import { POST_LOGIN_ACTION } from './actions';
-import { triggerLogin } from './assistFunctions';
+import { useSelector } from 'react-redux';
+// import { removeLoadingState } from '../../utils/helperFunctions';
+// import { POST_LOGIN_ACTION } from './actions';
+// import { triggerLogin } from './assistFunctions';
 
 const dataObject = {
   loading: [],
   loginData: {
-    user: {},
+    user: {
+      token: "",
+      reissueToken: "",
+      companyName: "",
+      companyEmail:"", 
+      companyPhone: "",
+    },
     isLoggedIn: false,
     successStatus: false,
     successMessage:{
@@ -29,20 +35,25 @@ export const authSlice = createSlice({
 
   reducers: {
     resetAuthState: (): AuthState => initialState,
-  },
-
-  extraReducers: builder => {
-    builder
-      // POST_LOGIN_ACTION
-      .addCase(POST_LOGIN_ACTION.pending, state => {
-        state.loading = ['POST_LOGIN'];
-      })
-      .addCase(POST_LOGIN_ACTION.fulfilled, (state, action): void => {
-        triggerLogin(state, action);
-      })
-      .addCase(POST_LOGIN_ACTION.rejected, (state): void => {
-        state.loading = removeLoadingState(state.loading, 'POST_LOGIN');
-      });
+    setLogin: (state: AuthState, action: PayloadAction<any>) => {
+      state.loginData = {
+        ...state.loginData,
+        isLoggedIn: true,
+        successStatus: true,
+        user: action?.payload?.data?.responseObject,
+        successMessage: {
+          title: action?.payload?.data?.message,
+          action: '',
+        },
+      };
+    },
+    setTokenAndRefreshToken: (state: AuthState, action: PayloadAction<any>) => {
+      state.loginData.user = {
+        ...state.loginData.user,
+        token: action?.payload?.token,
+        reissueToken: action?.payload?.refreshToken
+      }
+    } 
   },
 });
 
@@ -50,9 +61,9 @@ export const authSlice = createSlice({
 const selectAuth = (state: RootState) => state.auth;
 
 // Reducers and actions
-export const { resetAuthState } = authSlice.actions;
+export const { resetAuthState, setLogin, setTokenAndRefreshToken } = authSlice.actions;
 
 //App Redux State
-export const useAuthState = () => useAppSelector(selectAuth);
+export const useAuthState = () => useSelector(selectAuth);
 
 export default authSlice.reducer;

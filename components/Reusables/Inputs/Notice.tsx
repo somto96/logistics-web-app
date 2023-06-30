@@ -1,4 +1,11 @@
-import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay } from '@chakra-ui/react';
+import {
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+} from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 
 interface NoticeProps {
@@ -7,27 +14,28 @@ interface NoticeProps {
   isOpen: boolean;
   title: string | any;
   body: string | ReactNode;
+  bg?: string;
 }
 
-export const Notice = ({ placement, onClose, isOpen, body, title }: NoticeProps) => {
+export const Notice = ({
+  placement,
+  onClose,
+  isOpen,
+  body,
+  title,
+  bg = 'brand.black',
+}: NoticeProps) => {
   return (
     <>
       <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
-        <DrawerContent
-          sx={{
-            backgroundColor: 'brand.black',
-          }}>
+        <DrawerContent bg={bg}>
           <DrawerCloseButton
             size={'lg'}
-            sx={{
-              color: 'brand.white',
-            }}
+            color={bg === 'brand.white' ? 'brand.text' : 'brand.white'}
           />
-          <DrawerHeader color={"brand.white"}>{title}</DrawerHeader>
-          <DrawerBody>
-            {body}
-          </DrawerBody>
+          <DrawerHeader color={'brand.white'}>{title}</DrawerHeader>
+          <DrawerBody>{body}</DrawerBody>
         </DrawerContent>
       </Drawer>
     </>

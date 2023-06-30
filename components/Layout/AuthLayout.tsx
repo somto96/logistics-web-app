@@ -1,12 +1,14 @@
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useAuthState } from 'store/auth/slice';
+import { Box } from '@chakra-ui/react';
 
 export type AuthLayoutProps = {
   children: React.ReactNode;
+  bg: string;
 };
 
-export const AuthLayout = ({ children }: AuthLayoutProps) => {
+export const AuthLayout = ({ children, bg }: AuthLayoutProps) => {
   const router = useRouter();
   const { loginData } = useAuthState();
 
@@ -16,5 +18,9 @@ export const AuthLayout = ({ children }: AuthLayoutProps) => {
     }
   }, []);
 
-  return <>{children}</>;
+  return (
+    <Box h="100vh" bg={bg}>
+      {children}
+    </Box>
+  );
 };

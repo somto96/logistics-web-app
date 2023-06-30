@@ -12,11 +12,31 @@ export const customTheme = extendTheme({
       text: '#0D0D0D',
       error: '#EB5757',
       success: '#219653',
-      inputBorderColor: "#333333",
+      inputBorderColor: '#333333',
+    },
+    customColorScheme: {
+      500: "#0D0D0D",
+      // Customize more shades as per your requirement
     },
   },
   fonts: {
     heading: `'Inter', sans-serif`,
     body: `'Inter', sans-serif`,
+  },
+  components: {
+    Progress: {
+      baseStyle: {
+        filledTrack: {
+          bg: '#000000',
+        },
+      },
+    },
+    Stepper: {
+      baseStyle: {
+        baseStyle: {
+          colorScheme: "customColorScheme",
+        },
+      },
+    },
   },
 });

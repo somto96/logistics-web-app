@@ -1,0 +1,83 @@
+import {
+    FormControl,
+  //   FormErrorMessage,
+    FormLabel,
+    Input,
+    InputGroup,
+    Flex, 
+    Text,
+  } from '@chakra-ui/react';
+  import React from 'react';
+  
+  export interface TextInputProps {
+    value?: string;
+    type?: string;
+    placeholder?: string;
+    label?: string;
+    children?: React.ReactNode;
+    hasError?: boolean | any;
+    error?: string;
+    name?: string;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleBlur?: React.FocusEventHandler<HTMLInputElement> | undefined;
+    maxLength?: number;
+  }
+  
+  export const DateInput = ({
+    value,
+    hasError = false,
+    placeholder,
+    label,
+    error,
+    name,
+    handleChange,
+    handleBlur,
+  }: TextInputProps) => {
+    return (
+      <FormControl>
+        <FormLabel fontSize="12px" lineHeight="14px" letterSpacing={'0.02em'} color={'brand.text'}>
+          {label?.toUpperCase()}
+        </FormLabel>
+        <InputGroup size="md">
+          <Input
+            name={name}
+            value={value}
+            bgColor={'brand.white'}
+            p={5}
+            py={3}
+            fontSize={'14px'}
+            lineHeight={'14px'}
+            letterSpacing={'0.02em'}
+            color={'brand.text'}
+            type="date"
+            placeholder={placeholder}
+            onChange={e => handleChange(e)}
+            onBlur={handleBlur}
+            zIndex={2}
+            borderRadius="8px"
+            borderColor={hasError ? 'brand.error' : '#333333'}
+            _focusVisible={{
+              borderColor: '#333333',
+            }}
+            _hover={{
+              borderColor: '#333333',
+            }}
+            _placeholder={{
+              fontSize: '14px',
+              lineHeight: '27px',
+              letterSpacing: '0.03em',
+              color: '#BDBDBD',
+            }}
+          />
+        </InputGroup>
+        {hasError && (
+          <Flex flexDir={'row'} gap={2}>
+            <Text color={'brand.error'} fontSize={'12px'}>
+              {error}
+            </Text>
+          </Flex>
+        )}
+      </FormControl>
+    );
+  };
+  

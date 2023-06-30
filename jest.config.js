@@ -24,4 +24,5 @@ module.exports = {
   },
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  collectCoverage: true,
 };

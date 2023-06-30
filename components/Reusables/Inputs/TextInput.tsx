@@ -1,12 +1,13 @@
 import {
   FormControl,
-//   FormErrorMessage,
+  //   FormErrorMessage,
   FormLabel,
   Input,
   InputGroup,
   InputRightElement,
-  Flex, 
-  Text
+  InputLeftElement,
+  Flex,
+  Text,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -16,6 +17,7 @@ export interface TextInputProps {
   placeholder?: string;
   label?: string;
   children?: React.ReactNode;
+  iconElement?: React.ReactNode;
   hasError?: boolean | any;
   error?: string;
   name?: string;
@@ -31,6 +33,7 @@ export const TextInput = ({
   placeholder,
   label,
   children,
+  iconElement,
   error,
   name,
   handleChange,
@@ -40,9 +43,10 @@ export const TextInput = ({
   return (
     <FormControl>
       <FormLabel fontSize="12px" lineHeight="14px" letterSpacing={'0.02em'} color={'brand.text'}>
-        {label}
+        {label?.toUpperCase()}
       </FormLabel>
       <InputGroup size="md">
+        <InputLeftElement>{iconElement}</InputLeftElement>
         <Input
           name={name}
           value={value}

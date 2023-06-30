@@ -33,7 +33,7 @@ export const MobileNav = ({ isOpen, onClose }: Props) => {
             sx={{
               color: 'brand.white',
             }}
-          />
+          /> 
           <DrawerBody mt={10}>
             <Flex flexDir={'column'} gap={8}>
               {WEBSITE_MENU_LINKS.map(link => {
