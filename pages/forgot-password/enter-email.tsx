@@ -5,6 +5,7 @@ import { TextInput } from '@/components/Reusables/Inputs/TextInput';
 import { enterEmailSchema } from '@/utils/validationSchemas/onboarding/forgotPasswordValidations';
 import { Box, Button, Flex, SimpleGrid, Image, Text } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
+import Head from 'next/head';
 import React, { useState } from 'react';
 // import { POST_LOGIN_ACTION } from 'store/auth/actions';
 
@@ -16,6 +17,11 @@ const EnterEmail = () => {
 
   return (
     <>
+      <Head>
+        <title>Forgot Password || Email Address</title>
+        <meta name="description" content="Enter your email address" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Header src="../images/svgs/header-logo.svg" background={"transparent"} />
 
       <Box

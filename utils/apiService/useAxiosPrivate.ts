@@ -2,9 +2,12 @@ import { useEffect } from 'react';
 import { useAuthState } from '../../store/auth/slice';
 import { makePrivateRequest } from './useApiRequest';
 import { useRefreshToken } from './useRefreshToken';
+import { useRouter } from 'next/router';
+import { ToastNotify } from '../helperFunctions/toastNotify';
 
 export const useAxiosPrivate = () => {
   const auth = useAuthState();
+  const router = useRouter();
   const refresh = useRefreshToken();
 
   useEffect(() => {
@@ -20,11 +23,13 @@ export const useAxiosPrivate = () => {
     const responseIntercept = makePrivateRequest.interceptors.response.use(
       response => response,
       async error => {
-        const prevRequest = error?.config;
+        // const prevRequest = error?.config;
         if (error?.response?.status === 401) {
-          const newToken = await refresh();
-          prevRequest.headers['Authorization'] = `Bearer ${newToken}`;
-          return makePrivateRequest(prevRequest);
+          ToastNotify({
+            type: 'error',
+            message: "Your session timed out"
+          })
+          return router.push("/logout")
         }
         return Promise.reject(error);
       }

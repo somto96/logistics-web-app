@@ -11,6 +11,7 @@ import React, { useEffect, useState } from 'react';
 import { POST_SET_PASSWORD_ACTION } from 'store/onboarding/actions';
 import { useOnboardingState } from 'store/onboarding/slice';
 import { Notice } from '@/components/Reusables/Inputs/Notice';
+import Head from 'next/head';
 
 const SetPassword = () => {
   const router = useRouter();
@@ -26,8 +27,13 @@ const SetPassword = () => {
   }, [setPassword?.successStatus, submitted]);
   return (
     <>
+      <Head>
+        <title>Create Password</title>
+        <meta name="description" content="Create Your Password" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       {loading?.includes('POST_SET_PASSWORD') && <PageLoader />}
-      <Header />
+      <Header src='../images/svgs/header-logo.svg' position={"sticky"}/>
       <Box
         w="100%"
         h="100vh"

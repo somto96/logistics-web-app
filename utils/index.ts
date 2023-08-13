@@ -1,4 +1,4 @@
-type WebsiteMenuLinks = {
+export type WebsiteMenuLinks = {
   title: string;
   id: string | number;
   path: string;
@@ -91,6 +91,123 @@ export const PACKAGE_STATUS = [
   },
  
 ];
+
+export const RIDER_STATUS = [
+  {
+    id: 0,
+    label: 'All',
+    value: 'all',
+  },
+  {
+    id: 1,
+    label: 'Active',
+    value: 'active',
+  },
+  {
+    id: 2,
+    label: 'Inactive',
+    value: 'inactive',
+  },
+]
+export const TRACKING_STATUS = [
+  // AvailableForPickUp = 0,
+  // PickedUp = 1,
+  // WareHouse = 2,
+  // InDelivery = 3,
+  // UnDelivered = 4,
+  // SLABreach = 5,
+  // Delivered = 6
+
+  {
+    id: 0,
+    label: 'Available For PickUp',
+    value: 0,
+  },
+  {
+    id: 1,
+    label: 'Delivered',
+    value: 6,
+  },
+  {
+    id: 2,
+    label: 'In Delivery',
+    value: 3,
+  },
+  {
+    id: 3,
+    label: 'Warehouse',
+    value: 2,
+  },
+  {
+    id: 4,
+    label: 'Picked Up',
+    value: 1,
+  },
+  {
+    id: 5,
+    label: 'Undelivered',
+    value: 4,
+  },
+  {
+    id: 6,
+    label: 'SLA Breach',
+    value: 5,
+  },
+ 
+];
+
+export const LOCATIONS = [
+  {
+    id: 1,
+    label: "Agbado",
+    value: "Agbado"
+  },
+  {
+    id: 2,
+    label: "Agboyi",
+    value: "Agboyi"
+  },
+  {
+    id: 3,
+    label: "Alimosho",
+    value: "Alimosho"
+  },
+  {
+    id: 4,
+    label: "Ajah",
+    value: "Ajah"
+  },
+  {
+    id: 5,
+    label: "Ayobo",
+    value: "Ayobo"
+  },
+  {
+    id: 6,
+    label: "Bariga",
+    value: "Bariga"
+  },
+  {
+    id: 7,
+    label: "Egbeda-Idimu",
+    value: "Egbeda-Idimu"
+  },
+  {
+    id: 8,
+    label: "Ejigbo",
+    value: "Ejigbo"
+  },
+  {
+    id: 9,
+    label: "Igando-Ikotun",
+    value: "Igando-Ikotun"
+  },
+  {
+    id: 10,
+    label: "Magodo",
+    value: "Magodo"
+  },
+]
 
 export const WEBSITE_MENU_LINKS: WebsiteMenuLinks[] = [
   {
@@ -489,6 +606,24 @@ export const statusType = (type: any) => {
       return "#F2C94C";
   }
 };
+export const statusText = (type: any) => {
+  switch (type) {
+    case "availableforpickup":
+      return "Available For Pickup";
+    case "delivered":
+      return "Delivered";
+    case "indelivery":
+      return "In Delivery";
+    case "warehouse":
+      return "Warehouse";
+    case "pickedup":
+      return "Picked Up";
+    case "undelivered":
+      return "Undelivered";
+    default:
+      return "SLABreach";
+  }
+};
 
 export const PACKAGES_TABLE_HEADERS = [
   {
@@ -509,6 +644,72 @@ export const PACKAGES_TABLE_HEADERS = [
   },
   {
     id: 4,
+    name: "STATUS"
+  },
+]
+export const ADMIN_PACKAGES_TABLE_HEADERS = [
+  {
+    id: 0,
+    name: "TRACKING ID"
+  },
+  // {
+  //   id: 1,
+  //   name: "PICK UP ADDRESS"
+  // },
+  // {
+  //   id: 2,
+  //   name: "DELIVERY ADDRESS"
+  // },
+  {
+    id: 3,
+    name: "CUSTOMER NAME"
+  },
+  {
+    id: 4,
+    name: "STATUS"
+  },
+  {
+    id: 5,
+    name: "ACTION"
+  },
+]
+export const RIDERS_TABLE_HEADERS = [
+  {
+    id: 0,
+    name: "FULLNAME"
+  },
+  // {
+  //   id: 1,
+  //   name: "LAST NAME"
+  // },
+  {
+    id: 2,
+    name: "COMPANY PHONE NO"
+  },
+  {
+    id: 4,
+    name: "COMPANY EMAIL"
+  },
+  {
+    id: 5,
+    name: "STATUS"
+  },
+]
+export const CUSTOMERS_TABLE_HEADERS = [
+  {
+    id: 0,
+    name: "FULLNAME"
+  },
+  {
+    id: 2,
+    name: "COMPANY PHONE NO"
+  },
+  {
+    id: 4,
+    name: "COMPANY EMAIL"
+  },
+  {
+    id: 5,
     name: "STATUS"
   },
 ]

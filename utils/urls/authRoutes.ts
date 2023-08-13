@@ -1,2 +1,2 @@
-export const POST_LOGIN: string = "/Company/login";
-export const POST_REFRESH_TOKEN: string = "/Company/refresh-token"
+export const POST_LOGIN: string = "/Auth/login";
+export const POST_REFRESH_TOKEN: string = "/Auth/refresh-token"

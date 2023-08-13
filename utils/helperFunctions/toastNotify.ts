@@ -1,8 +1,8 @@
 import { toast, ToastPosition, ToastOptions } from 'react-toastify';
 
 interface ToastNotifyProps {
-    type?: string,
-    message?: string,
+    type: string,
+    message: string,
     position?: ToastPosition
 }
 
@@ -15,7 +15,7 @@ export function ToastNotify({type = "default", message = "", position = "top-rig
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
-    theme: "light"
+    theme: "dark"
   }
 
   switch (type) {

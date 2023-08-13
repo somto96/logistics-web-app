@@ -4,7 +4,7 @@ import React from 'react';
 import { setPackageNotes, useDashboardState } from '../../../store/dashboard/slice';
 import { useDispatch } from 'react-redux';
 import { TextArea } from '@/components/Reusables/Inputs/TextArea';
-import { useCreatePackage } from '@/utils/hooks/Dashboard/useCreatePackage';
+import { useCreatePackage } from '@/utils/hooks/Dashboard/Company/useCreatePackage';
 import dayjs from '../../../utils/dayjsLib';
 
 export const Notes = ({ setActive, closeModal }: any) => {

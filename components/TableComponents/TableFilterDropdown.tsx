@@ -10,18 +10,26 @@ interface Option {
 type TableFilterDropDownProps = {
   options: Option[];
   // name: string;
+  width?: string;
   placeholder: string;
   label: string;
   onChange: (value: string) => void;
   value?: any;
+  icon?: any;
+  rightIcon?: any;
+  height?: string;
 };
 
 export const TableFilterDropDown = ({
   options,
   // name,
   placeholder = 'Filter',
+  width = '100%',
   value,
+  rightIcon = <Image src="../images/svgs/ChevronDownIcon.svg" alt="ChevronDownIcon" />,
+  icon = <Image src="../images/svgs/sort-icon.svg" alt="sort" />,
   label,
+  height = 'auto',
   onChange,
 }: TableFilterDropDownProps) => {
   const [selectedOption, setSelectedOption] = useState<Option | null>(
@@ -32,14 +40,21 @@ export const TableFilterDropDown = ({
     onChange(option.value); // call onChange with the updated value
   };
   return (
-    <Flex flexDir="column" gap={2} w="100%"> 
-      <Text fontWeight={"500"} fontSize={'12px'} lineHeight={'15px'} letterSpacing={'0.02em'} color={'brand.text'}>
-        {label}
-      </Text>
+    <Flex flexDir="column" gap={2} w={width}>
+      {label !== '' && (
+        <Text
+          fontWeight={'500'}
+          fontSize={'12px'}
+          lineHeight={'15px'}
+          letterSpacing={'0.02em'}
+          color={'brand.text'}>
+          {label}
+        </Text>
+      )}
       <Menu matchWidth>
         <MenuButton
           bg={'brand.white'}
-          size={"sm"}
+          size={'sm'}
           border={'1px'}
           fontSize={'12px'}
           borderRadius="20px"
@@ -54,7 +69,7 @@ export const TableFilterDropDown = ({
               lineHeight: '14px',
               letterSpacing: '0.02em',
               color: 'brand.text',
-              fontWeight: 500,
+              fontWeight: 400,
             },
           }}
           _hover={{
@@ -63,13 +78,13 @@ export const TableFilterDropDown = ({
           w="100%"
           as={Button}
           textAlign={'left'}
-          rightIcon={<Image src="../images/svgs/ChevronDownIcon.svg" alt="ChevronDownIcon" />}
-          leftIcon={<Image src="../images/svgs/sort-icon.svg" alt="sort" />}>
+          rightIcon={rightIcon}
+          leftIcon={icon}>
           {selectedOption?.label || placeholder}
         </MenuButton>
         <MenuList
           w="100%"
-          h={'auto'}
+          h={height}
           zIndex={5}
           position={'relative'}
           overflowY={'auto'}

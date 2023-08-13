@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { OnboardingState } from '../interfaces';
 import { RootState } from '../store';
 import { useAppSelector } from '../../utils/hooks/useReduxHooks';
@@ -24,6 +24,32 @@ const dataObject = {
     },
     errorMessage: '',
   },
+  packageDetails: {
+    numberOfItems: 0,
+    weightOfPackage: 0,
+    packagePlacedBy: '',
+    packageDescription: '',
+    deliveryAddress: '',
+    deliveryCity: '',
+    deliveryState: '',
+    deliveryLandMark: '',
+    customerFirstName: '',
+    customerLastName: '',
+    customerPhoneNumber: '',
+    pickUpAddress: '',
+    pickUpCity: '',
+    pickUpState: '',
+    pickUpLandMark: '',
+    deliveryRider: '',
+    pickUpRider: '',
+    id: '',
+    trackingNumber: '',
+    notes: "",
+    qrCode: '',
+    status: '',
+    expectedDeliveryDate: '',
+    pickupDate: '',
+  },
 } as OnboardingState;
 
 export const initialState: OnboardingState = { ...dataObject };
@@ -34,6 +60,12 @@ export const onboardingSlice = createSlice({
 
   reducers: {
     resetOnboardingData: (): OnboardingState => initialState,
+    setPackageDetails: (state: OnboardingState, action: PayloadAction<any>) => {
+      state.packageDetails = action.payload;
+    },
+    setLoadingState: (state: OnboardingState, action: PayloadAction<any>) => {
+      state.loading = action.payload;
+    },
   },
 
   extraReducers: builder => {
@@ -65,7 +97,7 @@ export const onboardingSlice = createSlice({
 const selectOnboarding = (state: RootState) => state.onboarding;
 
 // Reducers and actions
-export const { resetOnboardingData } = onboardingSlice.actions;
+export const { resetOnboardingData, setPackageDetails, setLoadingState } = onboardingSlice.actions;
 
 //App Redux State
 export const useOnboardingState = () => useAppSelector(selectOnboarding);

@@ -1,11 +1,10 @@
 import { useAppDispatch } from '@/utils/hooks/useReduxHooks';
-import { DROPDOWN_LINKS, MOBILE_DROPDOWN_LINKS } from '@/utils/index';
 import {
   Flex,
   Button,
   Link,
   Box,
-  Text,
+  // Text,
   Image,
   useMediaQuery,
   Step,
@@ -21,7 +20,7 @@ import {
   MenuItem,
   MenuList,
   StepNumber,
-  StepIcon,
+  // StepIcon,
 } from '@chakra-ui/react';
 
 import { useRouter } from 'next/router';
@@ -32,13 +31,22 @@ import { PickupAddressAndSenderDetailsForm } from '../Forms/AddNewDelivery/Picku
 import { DeliveryAddressAndReceiverForm } from '../Forms/AddNewDelivery/DeliveryAddressAndReceiverForm';
 import { PackageDurationAndDescription } from '../Forms/AddNewDelivery/PackageDurationAndDescription';
 import { Notes } from '../Forms/AddNewDelivery/Notes';
-import { ToastNotify } from '@/utils/helperFunctions/toastNotify';
-import { setCreateDeliveryStatus, useDashboardState } from 'store/dashboard/slice';
-import { useFetchPackages } from '@/utils/hooks/Dashboard/useFetchPackages';
+// import { ToastNotify } from '@/utils/helperFunctions/toastNotify';
+import { useDashboardState } from 'store/dashboard/slice';
+// import { useFetchPackages } from '@/utils/hooks/Dashboard/useFetchPackages';
 import { PageLoader } from '../Reusables/Loaders/PageLoader';
+import { SuccessModal } from '../UserDashboard/SuccessModal';
+import { WebsiteMenuLinks } from '@/utils/index';
 
 type DashboardHeaderProps = {
   user: string;
+  optionList: WebsiteMenuLinks[];
+  showAddDelivery?: boolean;
+  usage?: string;
+  logoSrc?: string;
+  rightIconSrc?: string;
+  leftIconSrc?: string;
+  allowSuccess?: boolean;
 };
 const steps = [
   { title: 'Pickup Details', stepNumber: 1 },
@@ -46,14 +54,20 @@ const steps = [
   { title: 'Package Details', stepNumber: 3 },
   { title: 'Notes', stepNumber: 4 },
 ];
-export const DashboardHeader = ({ user }: DashboardHeaderProps) => {
+export const DashboardHeader = ({
+  user,
+  optionList,
+  usage = 'user',
+  logoSrc='../images/svgs/header-logo.svg',
+  rightIconSrc='../images/svgs/ChevronDownIcon.svg',
+  leftIconSrc='../images/svgs/profile-avatar.svg',
+  showAddDelivery = false,
+  allowSuccess = false,
+}: DashboardHeaderProps) => {
   const dispatch = useAppDispatch();
-  const { handleFetchPackages } = useFetchPackages();
-  const { createNewDelivery, loading, deliveryAddressAndReceiver, pickupAddressAndSender } =
-    useDashboardState();
+  const { createNewDelivery, loading } = useDashboardState();
   const router = useRouter();
   const [isLargerThan800] = useMediaQuery('(min-width: 800px)');
-  const options = isLargerThan800 ? DROPDOWN_LINKS : MOBILE_DROPDOWN_LINKS;
   const [showAddDeliveryModal, setShowAddDeliveryModal] = useState<boolean>(false);
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
   const { activeStep, setActiveStep } = useSteps({
@@ -73,7 +87,9 @@ export const DashboardHeader = ({ user }: DashboardHeaderProps) => {
 
   return (
     <>
-      {(loading?.includes("create_package") || loading?.includes("fetch_packages")) && <PageLoader /> }
+      {(loading?.includes('create_package') || loading?.includes('fetch_packages')) && (
+        <PageLoader />
+      )}
       <Flex flexDir={'column'} position={'sticky'} w={'100%'}>
         <Flex
           width="100%"
@@ -84,39 +100,45 @@ export const DashboardHeader = ({ user }: DashboardHeaderProps) => {
           py={1}
           justifyContent="space-between">
           <Box p="2" onClick={handleGoHome} cursor={'pointer'}>
-            <Image loading="lazy" src={'../images/svgs/header-logo.svg'} alt="header-logo" />
+            <Image loading="lazy" src={logoSrc} alt="header-logo" />
           </Box>
           {isLargerThan800 ? (
             <Flex flexDir="row" justifyContent="space-between" alignItems="center" gap="5">
-              <Link
-                href={'/api'}
-                color="brand.white"
-                _hover={{
-                  fontWeight: '500',
-                }}
-                style={{
-                  textDecoration: 'none',
-                  fontSize: '14px',
-                  lineHeight: '22px',
-                }}>
-                API Documentation
-              </Link>
-              <Box>
-                <Button
-                  bg="brand.white"
-                  color="brand.text"
-                  p="5"
-                  fontSize="14px"
-                  style={{
-                    borderRadius: '20px',
-                    lineHeight: '22px',
+              {usage === 'user' && (
+                <Link
+                  href={'/api'}
+                  color="brand.white"
+                  _hover={{
+                    fontWeight: '500',
                   }}
-                  cursor={'pointer'}
-                  onClick={() => setShowAddDeliveryModal(true)}>
-                  Add New Delivery
-                </Button>
-              </Box>
-              <Divider colorScheme={'whiteAlpha'} orientation="vertical" width={3} />
+                  style={{
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    lineHeight: '22px',
+                  }}>
+                  API Documentation
+                </Link>
+              )}
+              {usage === 'user' && (
+                <Box>
+                  <Button
+                    bg="brand.white"
+                    color="brand.text"
+                    p="5"
+                    fontSize="14px"
+                    style={{
+                      borderRadius: '20px',
+                      lineHeight: '22px',
+                    }}
+                    cursor={'pointer'}
+                    onClick={() => setShowAddDeliveryModal(true)}>
+                    Add New Delivery
+                  </Button>
+                </Box>
+              )}
+              {usage === 'user' && (
+                <Divider colorScheme={'whiteAlpha'} orientation="vertical" width={3} />
+              )}
               <Menu matchWidth>
                 <MenuButton
                   bg={'brand.white'}
@@ -143,9 +165,9 @@ export const DashboardHeader = ({ user }: DashboardHeaderProps) => {
                   as={Button}
                   textAlign={'left'}
                   rightIcon={
-                    <Image src="../images/svgs/ChevronDownIcon.svg" alt="ChevronDownIcon" />
+                    <Image src={rightIconSrc} alt="ChevronDownIcon" />
                   }
-                  leftIcon={<Image src="../images/svgs/profile-avatar.svg" alt="avatar" />}>
+                  leftIcon={<Image src={leftIconSrc} alt="avatar" />}>
                   {user}
                 </MenuButton>
                 <MenuList
@@ -159,7 +181,7 @@ export const DashboardHeader = ({ user }: DashboardHeaderProps) => {
                   letterSpacing={'0.02em'}
                   px={0}
                   py={0}>
-                  {options.map(option => (
+                  {optionList?.map(option => (
                     <MenuItem
                       key={option?.id}
                       p={4}
@@ -213,7 +235,7 @@ export const DashboardHeader = ({ user }: DashboardHeaderProps) => {
                 letterSpacing={'0.02em'}
                 px={0}
                 py={0}>
-                {options.map(option => (
+                {optionList.map(option => (
                   <MenuItem
                     key={option?.id}
                     p={4}
@@ -231,60 +253,65 @@ export const DashboardHeader = ({ user }: DashboardHeaderProps) => {
           )}
         </Flex>
       </Flex>
-      <ModalComponent
-        size={'4xl'}
-        isOpen={showAddDeliveryModal}
-        onClose={() => setShowAddDeliveryModal(false)}>
-        <Box position="relative" mb={8}>
-          {isLargerThan800 ? (
-            <Stepper index={activeStep} colorScheme={'customColorScheme'} cursor={'pointer'}>
-              {steps.map((step, index) => (
-                // Add onClick={() => setActiveStep(index)} to Step component to access forms
-                <Step key={index}>
-                  <StepIndicator>
-                    <StepStatus
-                      complete={<StepNumber />}
-                      incomplete={<StepNumber />}
-                      active={<StepNumber />}
-                    />
-                  </StepIndicator>
-                  <Box flexShrink="0" fontSize={'16px'} lineHeight={'19px'}>
-                    <StepTitle>{step.title}</StepTitle>
-                  </Box>
-                </Step>
-              ))}
-            </Stepper>
-          ) : (
-            <Stepper index={activeStep} colorScheme={'customColorScheme'} cursor={'pointer'}>
-              {steps.map((step, index) => (
-                <Step key={index}>
-                  <StepIndicator bg="white">
-                    <StepStatus complete={<StepIcon />} />
-                  </StepIndicator>
-                </Step>
-              ))}
-            </Stepper>
-          )}
+      {showAddDelivery && (
+        <ModalComponent
+          size={'4xl'}
+          isOpen={showAddDeliveryModal}
+          onClose={() => setShowAddDeliveryModal(false)}>
+          <Box position="relative" mb={8}>
+            {isLargerThan800 ? (
+              <Stepper index={activeStep} colorScheme={'customColorScheme'} cursor={'pointer'}>
+                {steps.map((step, index) => (
+                  // Add onClick={() => setActiveStep(index)} to Step component to access forms
+                  <Step key={index}>
+                    <StepIndicator>
+                      <StepStatus
+                        complete={<StepNumber />}
+                        incomplete={<StepNumber />}
+                        active={<StepNumber />}
+                      />
+                    </StepIndicator>
+                    <Box flexShrink="0" fontSize={'16px'} lineHeight={'19px'}>
+                      <StepTitle>{step.title}</StepTitle>
+                    </Box>
+                  </Step>
+                ))}
+              </Stepper>
+            ) : (
+              <Stepper index={activeStep} colorScheme={'customColorScheme'} cursor={'pointer'}>
+                {steps.map((step, index) => (
+                  <Step key={index}>
+                    <StepIndicator bg="white">
+                      <StepStatus />
+                    </StepIndicator>
+                  </Step>
+                ))}
+              </Stepper>
+            )}
 
-          <Progress
-            size={'xs'}
-            value={progressPercent}
-            colorScheme={'brand.black'}
-            position="absolute"
-            height="3px"
-            width="full"
-            top="40px"
-            zIndex={-1}
-          />
-        </Box>
-        <Box>
-          {activeStep === 0 && <PickupAddressAndSenderDetailsForm setActive={setActiveStep} />}
-          {activeStep === 1 && <DeliveryAddressAndReceiverForm setActive={setActiveStep} />}
-          {activeStep === 2 && <PackageDurationAndDescription setActive={setActiveStep} />}
-          {activeStep === 3 && <Notes setActive={setActiveStep} closeModal={() => setShowAddDeliveryModal(false)} />}
-        </Box>
-      </ModalComponent>
-      <ModalComponent
+            <Progress
+              size={'xs'}
+              value={progressPercent}
+              colorScheme={'brand.black'}
+              position="absolute"
+              height="3px"
+              width="full"
+              top="40px"
+              zIndex={-1}
+            />
+          </Box>
+          <Box>
+            {activeStep === 0 && <PickupAddressAndSenderDetailsForm setActive={setActiveStep} />}
+            {activeStep === 1 && <DeliveryAddressAndReceiverForm setActive={setActiveStep} />}
+            {activeStep === 2 && <PackageDurationAndDescription setActive={setActiveStep} />}
+            {activeStep === 3 && (
+              <Notes setActive={setActiveStep} closeModal={() => setShowAddDeliveryModal(false)} />
+            )}
+          </Box>
+        </ModalComponent>
+      )}
+      {allowSuccess && <SuccessModal isOpen={showSuccessModal} onClose={setShowSuccessModal} />}
+      {/* <ModalComponent
         size={'4xl'}
         isOpen={showSuccessModal}
         onClose={() => setShowSuccessModal(false)}
@@ -446,7 +473,7 @@ export const DashboardHeader = ({ user }: DashboardHeaderProps) => {
             </Button>
           </Flex>
         </Flex>
-      </ModalComponent>
+      </ModalComponent> */}
     </>
   );
 };

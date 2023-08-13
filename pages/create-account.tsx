@@ -1,10 +1,11 @@
 import { Header } from '@/components/Header';
 import { CardWrapper } from '@/components/Reusables/CardWrapper';
-import { Box, Text} from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { PageLoader } from '@/components/Reusables/Loaders/PageLoader';
 import { CreateAccountForm } from '@/components/Forms/CreateAccountForm';
 import { useCreateAccountsController } from 'controllers/useCreateAccountController';
+import Head from 'next/head';
 // import { useReCaptcha } from 'next-recaptcha-v3';
 
 const CreateAccount = () => {
@@ -29,6 +30,10 @@ const CreateAccount = () => {
   }, []);
   return (
     <>
+      <Head>
+        <title>Imperium Logistics || Sign Up </title>
+        <meta name="description" content="Create an account" />
+      </Head>
       {onboardingState?.loading?.includes('POST_CREATE_ACCOUNTS') && <PageLoader />}
       <Header background={scroll ? 'brand.black' : 'transparent'} />
       <Box

@@ -1,23 +1,26 @@
-import { ToastNotify } from '../../helperFunctions/toastNotify';
-import { useAxiosPrivate } from '../../../utils/apiService/useAxiosPrivate';
-import { POST_FETCH_PACKAGES } from '../../urls';
+import { ToastNotify } from '../../../helperFunctions/toastNotify';
+import { useAxiosPrivate } from '../../../apiService/useAxiosPrivate';
+import { POST_CREATE_PACKAGE } from '../../../urls';
 import {
-  setPackages,
-  setPaginationControls,
   setLoadingState,
-} from '../../../store/dashboard/slice';
+  setCreateDeliveryStatus
+} from '../../../../store/dashboard/slice';
 import { useDispatch } from 'react-redux';
 
-export const useFetchPackages = () => {
+export const useCreatePackage = () => {
   const makePrivateRequest = useAxiosPrivate();
   const dispatch = useDispatch();
 
-  const handleFetchPackages = async (payload: any) => {
-    dispatch(setLoadingState(['fetch_packages']));
+  const handleCreatePackage = async (payload: any) => {
+    dispatch(setLoadingState(['create_package']));
     try {
-      const response = await makePrivateRequest.post(POST_FETCH_PACKAGES, payload);
-      dispatch(setPackages(response?.data?.responseObject));
-      dispatch(setPaginationControls(payload));
+      const response = await makePrivateRequest.post(POST_CREATE_PACKAGE, payload);
+      if(response?.data?.isSuccessful){
+        dispatch(setCreateDeliveryStatus({
+          successStatus: true,
+          successMessage: response?.data?.responseObject
+        }));
+      }
       dispatch(setLoadingState([]));
       return ToastNotify({
         type: 'success',
@@ -41,6 +44,6 @@ export const useFetchPackages = () => {
   };
 
   return {
-    handleFetchPackages,
+    handleCreatePackage,
   };
 };

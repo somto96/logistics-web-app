@@ -2,29 +2,28 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { AuthState } from '../interfaces';
 import { RootState } from '../store';
 import { useSelector } from 'react-redux';
-// import { removeLoadingState } from '../../utils/helperFunctions';
-// import { POST_LOGIN_ACTION } from './actions';
-// import { triggerLogin } from './assistFunctions';
+
 
 const dataObject = {
   loading: [],
   loginData: {
     user: {
-      token: "",
-      reissueToken: "",
-      companyName: "",
-      companyEmail:"", 
-      companyPhone: "",
+      token: '',
+      reIssueToken: '',
+      name: '',
+      email: '',
+      phoneNumber: '',
+      role: '',
+      id: '',
     },
     isLoggedIn: false,
     successStatus: false,
-    successMessage:{
-        title: "",
-        action: "",
+    successMessage: {
+      title: '',
+      action: '',
     },
-    errorMessage: "",
-  }
-
+    errorMessage: '',
+  },
 } as AuthState;
 
 export const initialState: AuthState = { ...dataObject };
@@ -51,9 +50,9 @@ export const authSlice = createSlice({
       state.loginData.user = {
         ...state.loginData.user,
         token: action?.payload?.token,
-        reissueToken: action?.payload?.refreshToken
-      }
-    } 
+        reIssueToken: action?.payload?.refreshToken,
+      };
+    },
   },
 });
 

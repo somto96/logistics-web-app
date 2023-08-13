@@ -44,9 +44,10 @@ export const mockUpdatedLoginState = {
           'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibW90aXZhdGVkc29tdG9AZ21haWwuY29tIiwianRpIjoiMGQxODMwMmUtMTE2ZC00YTgxLWE2NjktOGFlMjA2YTVkMmE3IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ29tcGFueSIsImV4cCI6MTY4NTE1MjY1OCwiaXNzIjoiaW1wZXJpdW1jb3VyaWVyIiwiYXVkIjoiaW1wZXJpdW1jb3VyaWVyIn0.aASnOtPs80K5Z1OoQnFZsMdSPLeg5px6NO7mqwkJCuX_6vV6rvdVrBOewfOt3tUGtsH1E8mOu-JBX72DMMgkLw',
         reIssueToken:
           'WVsomt6TcOsfUznixFzhaQCEc3p0ViqMjHPiIEAqDkYOGLZR99Hy1qbns9mVU+GItm8ZytaSEWfCUaY7JvhRjA==',
-        companyName: 'Test Plc',
-        companyEmail: 'motivatedsomto@gmail.com',
-        companyPhone: '08164076996',
+        name: 'Test Plc',
+        email: 'motivatedsomto@gmail.com',
+        phoneNumber: '08164076996',
+        role: "admin"
       },
     },
     isLoggedIn: true,

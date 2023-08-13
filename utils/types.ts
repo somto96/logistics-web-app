@@ -32,6 +32,9 @@ export interface Packages {
   pickUpCity: string;
   pickUpState: string;
   pickUpLandMark: string;
+  deliveryRider: string;
+  pickUpRider: string;
+  notes: string;
   id: string;
   trackingNumber: string;
 }

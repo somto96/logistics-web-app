@@ -5,12 +5,14 @@ type TableSearchInputProps = {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     name: string;
     value: string;
+    placeholder?: string;
 }
 export const TableSearchInput = ({
     label,
     handleChange,
     name,
-    value
+    value,
+    placeholder="Search by Tracking ID"
 }: TableSearchInputProps) => {
   return (
     <FormControl>
@@ -30,7 +32,7 @@ export const TableSearchInput = ({
           value={value}
           bgColor={'brand.white'}
           onChange={(e) => handleChange(e)}
-          placeholder="Search by Tracking ID"
+          placeholder={placeholder}
           fontSize={'12px'}
           lineHeight={'15px'}
           letterSpacing={'0.02em'}

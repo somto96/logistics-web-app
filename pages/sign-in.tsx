@@ -22,6 +22,7 @@ import PasswordInput from '@/components/Reusables/Inputs/PasswordInput';
 import { TextInput } from '@/components/Reusables/Inputs/TextInput';
 import { loginSchema } from '@/utils/validationSchemas/authValidations/loginValidations';
 import { Formik, Form } from 'formik';
+import Head from 'next/head';
 
 const Signin = () => {
   // const router = useRouter();
@@ -35,6 +36,11 @@ const Signin = () => {
   const { initialValueData, handleFormSubmit, setIsChecked, isChecked } = useLoginController();
   return (
     <>
+      <Head>
+        <title>Imperium Logistics || Sign In </title>
+        <meta name="description" content="Sign In" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       {loading && <PageLoader />}
       <Header background={'transparent'} />
 
@@ -166,7 +172,7 @@ const Signin = () => {
           placement={'bottom'}
           onClose={() => setShowNotice(false)}
           isOpen={showNotice}
-          title={`Welcome ${authState?.loginData?.user?.companyName}`}
+          title={`Welcome ${authState?.loginData?.user?.name}`}
           body={
             <Flex
               flexDir={'column'}

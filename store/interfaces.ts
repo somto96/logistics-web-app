@@ -39,12 +39,23 @@ export interface OnboardingState {
     };
     errorMessage: string;
   };
+  packageDetails: Packages;
 }
+
+export type User = {
+  token: string;
+  reIssueToken: string;
+  name: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
+  id: string;
+};
 
 export interface AuthState {
   loading: any;
   loginData: {
-    user: any;
+    user: User;
     isLoggedIn: boolean;
     successStatus: boolean;
     successMessage: {
@@ -96,10 +107,71 @@ type PackageDurationAndDescription = {
   packageDescription: string;
 };
 
+export type AdminPackages = {
+  numberOfItems: number;
+  weightOfPackage: number;
+  packagePlacedBy: string;
+  packageDescription: string;
+  deliveryAddress: string;
+  deliveryCity: string;
+  deliveryState: string;
+  deliveryLandMark: string;
+  customerFirstName: string;
+  customerLastName: string;
+  customerPhoneNumber: string;
+  pickUpAddress: string;
+  pickUpCity: string;
+  pickUpState: string;
+  pickUpLandMark: string;
+  deliveryRider: string;
+  pickUpRider: string;
+  id: string;
+  trackingNumber: string;
+  qrCode: string;
+  status: string;
+  expectedDeliveryDate: string;
+  pickupDate: string;
+};
+
+export type RidersList = {
+  id: string;
+  isActive: boolean;
+  fullName: string;
+  phoneNumber: string;
+  email: string;
+  frequentLocation: string;
+  bikeRegistrationNumber: string;
+  licenseNumber: string;
+};
+
+export type CustomersList = {
+  id: string;
+  dateCreated: string;
+  name: string;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  state: string;
+  emailAddress: {
+    address: string;
+    isVerified: boolean;
+  };
+  owner: {
+    fullName: string;
+  };
+};
+
+export type CustomerAnalytics = {
+  packageAvailableForPickUp: number;
+  packageAtWareHouse: number;
+  packageDelivered: number;
+  packageUnDelivered: number;
+};
+
 export interface DashboardState {
   loading: string[];
   paginationControls: PaginationControl;
-  packages?: {
+  packages: {
     items: Packages[];
     totalItemCount?: number;
     totalPageCount?: number;
@@ -116,4 +188,35 @@ export interface DashboardState {
     successStatus?: boolean;
     successMessage?: any;
   };
+  adminPackages: {
+    items: AdminPackages[];
+    totalItemCount: number;
+    totalPageCount: number;
+    currentPageSize: number;
+    currentPageNumber: number;
+    hasPrevious: boolean;
+    hasNext: boolean;
+  };
+  allPackagesSelected: boolean;
+  selectedPackages: string[];
+  selectedPackageToView: AdminPackages;
+  riders: {
+    items: RidersList[];
+    currentPageSize: number;
+    currentPageNumber: number;
+    hasPrevious: boolean;
+    hasNext: boolean;
+  };
+  riderPaginationControls: PaginationControl;
+  paginationControlsForCustomers: PaginationControl;
+  customers: {
+    items: CustomersList[];
+    currentPageSize: number;
+    currentPageNumber: number;
+    hasPrevious: boolean;
+    hasNext: boolean;
+  };
+  pickupRiderDetails: RidersList;
+  deliveryRiderDetails: RidersList;
+  customerAnalytics: CustomerAnalytics;
 }

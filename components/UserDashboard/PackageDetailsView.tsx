@@ -18,20 +18,23 @@ import { packageDetailsTitleAndDescription } from '../../utils/index';
 import { ToastNotify } from '../../utils/helperFunctions/toastNotify';
 import { useAuthState } from '../../store/auth/slice';
 import dayjs from '../../utils/dayjsLib';
+import { useDashboardState } from 'store/dashboard/slice';
 // import { useRouter } from 'next/router';
 
 type Props = {
   isOpen: boolean;
   onClose: any;
+  showTrackingInfo: any;
   bg: string;
   item: Packages;
 };
 
-export const PackageDetailsView = ({ isOpen, onClose, item, bg }: Props) => {
+export const PackageDetailsView = ({ isOpen, onClose, item, bg, showTrackingInfo }: Props) => {
   const {
     loginData,
   } = useAuthState();
   //   const router = useRouter();
+  const { pickupRiderDetails, deliveryRiderDetails } = useDashboardState();
   return (
     <>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
@@ -194,7 +197,7 @@ export const PackageDetailsView = ({ isOpen, onClose, item, bg }: Props) => {
                   textTransform={'uppercase'}
                   letterSpacing={'0.03em'}
                   color={'#828282'}>
-                  {loginData?.user?.companyName}
+                  {loginData?.user?.name}
                 </Text>
                 <Text
                   fontWeight={'600'}
@@ -203,7 +206,7 @@ export const PackageDetailsView = ({ isOpen, onClose, item, bg }: Props) => {
                   textTransform={'uppercase'}
                   letterSpacing={'0.03em'}
                   color={'#828282'}>
-                  {loginData?.user?.companyPhone}
+                  {loginData?.user?.phoneNumber}
                 </Text>
               </Flex>
             </Flex>
@@ -231,7 +234,10 @@ export const PackageDetailsView = ({ isOpen, onClose, item, bg }: Props) => {
                     backgroundColor: 'brand.text',
                   }}
                   cursor={'pointer'}
-                  // onClick={() => router.push('/add-new-delivery')}
+                  onClick={() => {
+                    showTrackingInfo();
+                    onClose();
+                  }}
                 >
                   Track Package
                 </Button>
@@ -354,7 +360,7 @@ export const PackageDetailsView = ({ isOpen, onClose, item, bg }: Props) => {
                   lineHeight={'17px'}
                   letterSpacing={'0.02em'}
                   color={'brand.text'}>
-                  Olayemi Ojo
+                  {pickupRiderDetails.fullName}
                 </Text>
                 <Text
                   fontWeight={'600'}
@@ -363,7 +369,7 @@ export const PackageDetailsView = ({ isOpen, onClose, item, bg }: Props) => {
                   textTransform={'uppercase'}
                   letterSpacing={'0.03em'}
                   color={'#828282'}>
-                  08052522522
+                  {pickupRiderDetails.phoneNumber}
                 </Text>
                 <Text
                   fontWeight={'600'}
@@ -372,7 +378,7 @@ export const PackageDetailsView = ({ isOpen, onClose, item, bg }: Props) => {
                   textTransform={'uppercase'}
                   letterSpacing={'0.03em'}
                   color={'#828282'}>
-                  KTU239JK
+                  {pickupRiderDetails.bikeRegistrationNumber}
                 </Text>
               </Flex>
             </Flex>
@@ -403,7 +409,7 @@ export const PackageDetailsView = ({ isOpen, onClose, item, bg }: Props) => {
                   lineHeight={'17px'}
                   letterSpacing={'0.02em'}
                   color={'brand.text'}>
-                  Olayemi Ojo
+                  {deliveryRiderDetails.fullName}
                 </Text>
                 <Text
                   fontWeight={'600'}
@@ -412,7 +418,7 @@ export const PackageDetailsView = ({ isOpen, onClose, item, bg }: Props) => {
                   textTransform={'uppercase'}
                   letterSpacing={'0.03em'}
                   color={'#828282'}>
-                  08052522522
+                  {deliveryRiderDetails.phoneNumber}
                 </Text>
                 <Text
                   fontWeight={'600'}
@@ -421,7 +427,7 @@ export const PackageDetailsView = ({ isOpen, onClose, item, bg }: Props) => {
                   textTransform={'uppercase'}
                   letterSpacing={'0.03em'}
                   color={'#828282'}>
-                  KTU239JK
+                  {deliveryRiderDetails.bikeRegistrationNumber}
                 </Text>
               </Flex>
             </Flex>

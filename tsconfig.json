@@ -21,6 +21,7 @@
       "@/styles/*": ["styles/*"],
       "@/interfaces/*": ["interfaces/*"],
       "@/utils/*": ["utils/*"],
+      "@/public/*": ["public/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/Layout/utils.js"],

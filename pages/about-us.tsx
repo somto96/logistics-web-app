@@ -4,11 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { PORTFOLIO, TEAMS } from '../utils';
 import { ContactUs } from '@/components/ContactUs/ContactUs';
 import { Footer } from '@/components/Footer/Footer';
+import Head from 'next/head';
 
 const AboutUs = () => {
   const [scroll, setScroll] = useState(false);
   const [isLargerThan800] = useMediaQuery('(min-width: 800px)');
-
 
   useEffect(() => {
     const changeBg = () => {
@@ -27,6 +27,10 @@ const AboutUs = () => {
   }, []);
   return (
     <>
+      <Head>
+        <title>Imperium Logistics || About Us</title>
+        <meta name="description" content="About Us" />
+      </Head>
       <Header
         showMenuList
         showMobileNav
@@ -53,7 +57,7 @@ const AboutUs = () => {
           flexDir={{ base: 'column', md: 'row' }}>
           <Box
             w={{ base: '100%', md: '50%' }}
-            data-aos={isLargerThan800 ? "fade-left" : "fade-up"}
+            data-aos={isLargerThan800 ? 'fade-left' : 'fade-up'}
             data-aos-duration="500"
             data-aos-delay="0">
             <Text fontWeight={600} fontSize={'30px'} lineHeight={'40px'}>
@@ -63,7 +67,7 @@ const AboutUs = () => {
           </Box>
           <Box
             w={{ base: '100%', md: '50%' }}
-            data-aos={isLargerThan800 ? "fade-right" : "fade-down"}
+            data-aos={isLargerThan800 ? 'fade-right' : 'fade-down'}
             data-aos-duration="500"
             data-aos-delay="0">
             <Text fontSize={'13px'} lineHeight={'18px'}>
@@ -97,7 +101,7 @@ const AboutUs = () => {
           <Box
             w={{ base: '100%', md: '50%' }}
             px={5}
-            data-aos={isLargerThan800 ? "fade-left" : "fade-up"}
+            data-aos={isLargerThan800 ? 'fade-left' : 'fade-up'}
             data-aos-duration="1200"
             data-aos-delay="0">
             <Text fontWeight={700} fontSize={'30px'} lineHeight={'40px'}>
@@ -142,7 +146,7 @@ const AboutUs = () => {
             <Text
               fontSize={'13px'}
               lineHeight={'18px'}
-              data-aos={isLargerThan800 ? "fade-right" : "fade-up"}
+              data-aos={isLargerThan800 ? 'fade-right' : 'fade-up'}
               data-aos-duration="1500"
               data-aos-delay="0">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum

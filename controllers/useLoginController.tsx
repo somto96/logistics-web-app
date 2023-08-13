@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuthState, setLogin } from '../store/auth/slice';
 import { LoginType } from '../utils/types/auth';
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 import { makeRequest } from '../utils/apiService/useApiRequest';
 import { POST_LOGIN } from '../utils/urls/authRoutes';
 import { useRouter } from 'next/router';
@@ -13,13 +13,22 @@ export const useLoginController = () => {
   const router = useRouter();
   const [isChecked, setIsChecked] = useState<boolean>(false);
   // const [loading, setLoading] = useState<boolean>(false);
- 
-
 
   //   Initial values
   const initialValueData = {
     email: '',
     password: '',
+  };
+
+  const redirectRoute = (role: string) => {
+    switch (role?.toLowerCase()) {
+      case 'company':
+        return "/dashboard/user";
+      case 'rider':
+        return "/dashboard/rider";
+      default:
+        return "/dashboard/back-office";
+    }
   };
 
   //Handler Functions
@@ -36,15 +45,15 @@ export const useLoginController = () => {
         message: response?.data?.message,
         position: 'top-right',
       });
-      return router.push('/dashboard/user');
+      return router.push(redirectRoute(response?.data?.responseObject?.role));
+      // return router.push("/dashboard/back-office");
     } catch (error: any) {
       return ToastNotify({
         type: 'error',
         message: error?.response?.data?.message,
-        position: 'top-right',
+        position: 'top-right', 
       });
     }
-
   };
 
   return {
@@ -54,5 +63,5 @@ export const useLoginController = () => {
     setIsChecked,
     isChecked,
     // loading,
-  }
+  };
 };

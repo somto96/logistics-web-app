@@ -11,6 +11,7 @@ import React, { useEffect, useState } from 'react';
 import { POST_SET_PASSWORD_ACTION } from 'store/onboarding/actions';
 import { useOnboardingState } from 'store/onboarding/slice';
 import { Notice } from '@/components/Reusables/Inputs/Notice';
+import Head from 'next/head';
 
 const ResetPassword = () => {
   const router = useRouter();
@@ -26,8 +27,13 @@ const ResetPassword = () => {
   }, [setPassword?.successStatus, submitted]);
   return (
     <>
+      <Head>
+        <title>Forgot Password</title>
+        <meta name="description" content="Forgot Password" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       {loading?.includes('POST_SET_PASSWORD') && <PageLoader />}
-      <Header src="../images/svgs/header-logo.svg" background={"transparent"} showMenuList />
+      <Header src="../images/svgs/header-logo.svg" background={'transparent'} showMenuList />
       <Box
         w="100%"
         h="100vh"
@@ -72,15 +78,7 @@ const ResetPassword = () => {
               setSubmitted(true);
             }}
             validationSchema={setPasswordSchema}>
-            {({
-              handleChange,
-              handleBlur,
-              errors,
-              touched,
-              isValid,
-              dirty,
-              values,
-            }) => {
+            {({ handleChange, handleBlur, errors, touched, isValid, dirty, values }) => {
               return (
                 <Form>
                   <SimpleGrid columns={1} spacing={10} p={5}>

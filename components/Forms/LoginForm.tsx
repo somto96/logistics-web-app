@@ -11,7 +11,6 @@ import {
   Checkbox,
 } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
-// import { POST_LOGIN_ACTION } from 'store/auth/actions';
 import { useLoginController } from 'controllers/useLoginController';
 import PasswordInput from '../Reusables/Inputs/PasswordInput';
 import { TextInput } from '../Reusables/Inputs/TextInput';

@@ -1,9 +1,9 @@
-import { useFetchPackages } from '../utils/hooks/Dashboard/useFetchPackages';
+import { useFetchPackages } from '../utils/hooks/Dashboard/Company/useFetchPackages';
 import { useDispatch } from 'react-redux';
 import { setPaginationControls, useDashboardState } from '../store/dashboard/slice';
 import dayjs from "../utils/dayjsLib";
 
-export const useDataTableController = () => {
+export const useCompanyDataTableController = () => {
   const dispatch = useDispatch();
   const { handleFetchPackages } = useFetchPackages();
   const { paginationControls } = useDashboardState();
@@ -87,9 +87,23 @@ export const useDataTableController = () => {
       },
     });
   };
+
+  const customerAnalyticsTitle = (analytics: string) => {
+    switch (analytics) {
+      case 'packageAvailableForPickUp':
+        return "Total package available for pick up"
+      case 'packageAtWareHouse':
+        return "Total package at warehouse";
+      case 'packageDelivered':
+        return "Total package Delivered";
+      default:
+        return "Total package Undelivered";
+    }
+  }
   return {
     handleApplyFilters,
     handleFetchNext,
     handleFetchPrev,
+    customerAnalyticsTitle
   };
 };

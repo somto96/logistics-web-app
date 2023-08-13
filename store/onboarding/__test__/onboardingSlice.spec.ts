@@ -5,7 +5,6 @@ import reducer, { initialState, resetOnboardingData } from '../slice';
 import {
   successfulOnboardingResponse,
   mockSetPasswordSuccessResponse,
-  mockUpdatedOnboardingState,
 } from './mocks';
 import { CreateAccount } from '../../../utils/types/onboarding';
 
@@ -57,7 +56,17 @@ describe('onboarding slice', () => {
   });
 
   it('should reset the state', () => {
-    const testState = mockUpdatedOnboardingState;
+    const testState = {
+      ...initialState,
+      createAccount: {
+        successStatus: true,
+        successMessage: {
+          title: 'Account Created Successfully',
+          action: '',
+        },
+        errorMessage: '',
+      },
+    };
     const action = resetOnboardingData();
     const newState = reducer(testState, action);
     expect(newState).toEqual(initialState);
