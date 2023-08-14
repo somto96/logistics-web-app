@@ -22,7 +22,7 @@ const SetPassword = () => {
 
   useEffect(() => {
     if (submitted) {
-      setPassword?.successStatus && setShowNotice(true);
+      setPassword?.successStatus && router.push("/dashboard/user")
     }
   }, [setPassword?.successStatus, submitted]);
   return (
