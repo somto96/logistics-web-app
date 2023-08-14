@@ -66,6 +66,16 @@ export const onboardingSlice = createSlice({
     setLoadingState: (state: OnboardingState, action: PayloadAction<any>) => {
       state.loading = action.payload;
     },
+    handleSetPasswordState: (state: OnboardingState, action: PayloadAction<any>) => {
+      state.setPassword = {
+        ...state.setPassword,
+        successStatus: true,
+        successMessage: {
+          title: action?.payload?.message,
+          action: action?.payload?.responseObject,
+        },
+      };
+    }
   },
 
   extraReducers: builder => {
@@ -97,7 +107,7 @@ export const onboardingSlice = createSlice({
 const selectOnboarding = (state: RootState) => state.onboarding;
 
 // Reducers and actions
-export const { resetOnboardingData, setPackageDetails, setLoadingState } = onboardingSlice.actions;
+export const { resetOnboardingData, setPackageDetails, setLoadingState, handleSetPasswordState } = onboardingSlice.actions;
 
 //App Redux State
 export const useOnboardingState = () => useAppSelector(selectOnboarding);

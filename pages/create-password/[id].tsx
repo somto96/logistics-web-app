@@ -1,30 +1,32 @@
 import { Header } from '@/components/Header';
 import { CardWrapper } from '@/components/Reusables/CardWrapper';
 import PasswordInput from '@/components/Reusables/Inputs/PasswordInput';
-import { useAppDispatch } from '@/utils/hooks/useReduxHooks';
+// import { useAppDispatch } from '@/utils/hooks/useReduxHooks';
 import { setPasswordSchema } from '@/utils/validationSchemas/onboarding/setPasswordValidations';
 import { PageLoader } from '@/components/Reusables/Loaders/PageLoader';
 import { Box, Button, Flex, SimpleGrid, Image, Text } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import { POST_SET_PASSWORD_ACTION } from 'store/onboarding/actions';
+import React, { useState } from 'react';
+// import { POST_SET_PASSWORD_ACTION } from 'store/onboarding/actions';
 import { useOnboardingState } from 'store/onboarding/slice';
 import { Notice } from '@/components/Reusables/Inputs/Notice';
 import Head from 'next/head';
+import { useSetPassword } from '@/utils/hooks/LandingPage/useSetPassword';
 
 const SetPassword = () => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const { loading, setPassword } = useOnboardingState();
-  const [submitted, setSubmitted] = useState<boolean>(false);
+  // const [submitted, setSubmitted] = useState<boolean>(false);
   const [showNotice, setShowNotice] = useState<boolean>(false);
+  const { handleSetPassword } = useSetPassword();
 
-  useEffect(() => {
-    if (submitted) {
-      setPassword?.successStatus && router.push("/dashboard/user")
-    }
-  }, [setPassword?.successStatus, submitted]);
+  // useEffect(() => {
+  //   if (submitted) {
+  //     setPassword?.successStatus && router.push('/dashboard/user');
+  //   }
+  // }, [setPassword?.successStatus, submitted]);
   return (
     <>
       <Head>
@@ -32,8 +34,8 @@ const SetPassword = () => {
         <meta name="description" content="Create Your Password" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {loading?.includes('POST_SET_PASSWORD') && <PageLoader />}
-      <Header src='../images/svgs/header-logo.svg' position={"sticky"}/>
+      {loading?.includes('set-password') && <PageLoader />}
+      <Header src="../images/svgs/header-logo.svg" position={'sticky'} />
       <Box
         w="100%"
         h="100vh"
@@ -74,8 +76,8 @@ const SetPassword = () => {
               };
 
               //   console.log('payload', payload);
-              dispatch(POST_SET_PASSWORD_ACTION(payload));
-              setSubmitted(true);
+              handleSetPassword(payload)
+              // setSubmitted(true);
             }}
             validationSchema={setPasswordSchema}>
             {({

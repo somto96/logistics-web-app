@@ -11,7 +11,7 @@ export const triggerCreateAccounts = (state: OnboardingState, action: any) => {
       successStatus: true,
       successMessage: {
         title: action?.payload?.data?.message,
-        action: action?.payload?.data?.responseObject
+        action: action?.payload?.data?.responseObject,
       },
     };
     ToastNotify({
@@ -41,11 +41,10 @@ export const triggerSetPassword = (state: OnboardingState, action: any) => {
       successStatus: true,
       successMessage: {
         title: action?.payload?.data?.message,
-        action: action?.payload?.data?.responseObject
+        action: action?.payload?.data?.responseObject,
       },
-      
     };
-    localStorage.setItem('token', action?.payload?.data?.responseObject?.token)
+    localStorage.setItem('token', action?.payload?.data?.responseObject?.token);
     ToastNotify({
       type: 'success',
       message: action?.payload?.data?.message,

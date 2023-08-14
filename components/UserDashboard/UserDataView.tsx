@@ -70,7 +70,7 @@ export const UserDataView = () => {
 
   useEffect(() => {
     handleFetchCompanyAnalytics({
-      id: loginData.user.id,
+      id: loginData?.user?.id,
     });
   }, []);
 
