@@ -12,7 +12,7 @@ const LandingPageFooter: React.FC<any> = ()=>{
         href: string;
     };
     const quickLinksMenu: FooterMenuItem[] = [
-        { text: 'About us', href: '#' },
+        { text: 'About us', href: 'about-us' },
         { text: 'Track', href: '#' },
         { text: 'API Documentation', href: '#' },
         { text: 'Pricing', href: '#' },
@@ -114,7 +114,7 @@ const LandingPageFooter: React.FC<any> = ()=>{
                 </div>
 
                 {/** News Letter */}
-                <div className="space-y-3 text-white md:col-span-2">
+                <div className="space-y-3 text-white md:col-span-1 col-span-2">
                     <h3 className="font-bold text-lg">
                         SUBSCRIBE FOR NEWSLETTER
                     </h3>
@@ -190,7 +190,7 @@ const LandingPageFooter: React.FC<any> = ()=>{
                     </Link>
                 </div>
                 <div className="flex-1"></div>
-                <div className="flex items-center sm:space-x-3 sm:flex-row flex-col space-y-3 justify-center sm:justify-start w-full sm:w-auto">
+                <div className="flex items-center sm:space-x-3 sm:flex-row flex-col sm:space-y-0 space-y-3 justify-center sm:justify-start w-full sm:w-auto">
                     <h3 className="font-bold text-lg text-white">
                         CONTACT US:
                     </h3>

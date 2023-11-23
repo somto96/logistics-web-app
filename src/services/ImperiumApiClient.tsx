@@ -1,5 +1,9 @@
+import { CreateAccountPayload } from "@/types/requests/CreateAccountPayload";
+import { CreatePasswordPayload } from "@/types/requests/CreatePasswordPayload";
+import { SignInPayload } from "@/types/requests/SignInPayload";
 import { ApiResponse } from "@/types/responses/ApiResponse";
 import { PackageTrackingData } from "@/types/responses/PackageTrackingData";
+import { SignInResponseData } from "@/types/responses/SignInResponseData";
 import axios, { AxiosInstance } from "axios"
 
 
@@ -38,6 +42,31 @@ class ImperiumApiClient {
 
         return response.data
     }
+
+    public async signIn(payload: SignInPayload){
+        const cacheKey = `/Auth/login`;
+
+        let response = await this._axiosInstance.post<ApiResponse<SignInResponseData>>(cacheKey, payload);
+
+        return response.data
+    }
+
+    public async createPassword(payload: CreatePasswordPayload){
+        const cacheKey = `/Company/credential`;
+
+        let response = await this._axiosInstance.post<ApiResponse<SignInResponseData>>(cacheKey, payload);
+
+        return response.data
+    }
+
+    public async createAccount(payload: CreateAccountPayload){
+        const cacheKey = `/Company/account`;
+
+        let response = await this._axiosInstance.post<ApiResponse<Text>>(cacheKey, payload);
+
+        return response.data
+    }
+
 
 }
 

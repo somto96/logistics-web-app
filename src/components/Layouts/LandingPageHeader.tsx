@@ -7,7 +7,11 @@ import React from 'react';
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
 
-const LandingPageHeader: React.FC<any> = ()=>{
+export interface LandingPageHeaderProps{
+    sticky?: boolean;
+}
+
+const LandingPageHeader: React.FC<LandingPageHeaderProps> = ({ sticky })=>{
 
     // Ref
     const headerRef = React.createRef<HTMLHeadElement>();
@@ -24,8 +28,8 @@ const LandingPageHeader: React.FC<any> = ()=>{
     const menuItems: HomeMenuItem[] = [
         { text: 'Home', href: '/' },
         { text: 'Our services', href: '#' },
-        { text: 'About us', href: '#' },
-        { text: 'Sign in', href: '#' },
+        { text: 'About us', href: 'about-us' },
+        { text: 'Sign in', href: 'sign-in' },
     ];
 
     // Mobile Off canvas
@@ -77,10 +81,12 @@ const LandingPageHeader: React.FC<any> = ()=>{
     // Effects
     React.useEffect(()=>{
         const changeBg = () => {
-            if (window.scrollY >= 50) {
-                headerRef.current?.classList.add('bg-black')
-            } else {
-                headerRef.current?.classList.remove('bg-black')
+            if (!sticky) {
+                if (window.scrollY >= 50) {
+                    headerRef.current?.classList.add('bg-black')
+                } else {
+                    headerRef.current?.classList.remove('bg-black')
+                }
             }
         };
       
@@ -97,7 +103,7 @@ const LandingPageHeader: React.FC<any> = ()=>{
         { mobileOffCanvas }
         <header 
             ref={headerRef}
-            className='fixed top-0 w-full py-3 flex md:px-20 px-4 z-20'
+            className={`${sticky ? 'sticky' : 'fixed'} top-0 w-full py-3 flex md:px-20 px-4 z-20 ${sticky ? 'bg-black' : ''}`}
         >
             
             {/** Logo */}

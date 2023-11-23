@@ -50,6 +50,9 @@ export default function RootLayout({
         <Providers>
             { children }
         </Providers>
+		<script async
+			src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLEMAP_API_KEY}&libraries=places`}>
+		</script>
       </body>
     </html>
   )

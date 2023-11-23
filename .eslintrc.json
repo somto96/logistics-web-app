@@ -20,6 +20,6 @@
     "react/jsx-key": 0,
     "no-console": 1,
     "no-restricted-globals": 0,
-    "@typescript-eslint/no-unused-vars": 2
+    // "@typescript-eslint/no-unused-vars": 2
   }
 }
