@@ -186,7 +186,7 @@ const HomeCarousel: React.FC<any> = ()=>{
                     <p className='text-[10px] text-gray-500 font-medium'>
                         PICKUP ADDRESS
                     </p>
-                    <p className='text-sm'>
+                    <p className='text-sm text-black'>
                         { packageData?.pickUpAddress }
                     </p>
                     <p className='text-[10px] text-gray-500'>
@@ -200,7 +200,7 @@ const HomeCarousel: React.FC<any> = ()=>{
                     <p className='text-[10px] text-gray-500 font-medium'>
                         DELIVERY ADDRESS
                     </p>
-                    <p className='text-sm'>
+                    <p className='text-sm text-black'>
                         { packageData?.deliveryAddress }
                     </p>
                     <p className='text-[10px] text-gray-500'>
@@ -391,7 +391,7 @@ const HomeCarousel: React.FC<any> = ()=>{
     // Tracking Modal Content
     const trackingModalContent = (
         <div className='h-full w-full items-center justify-center flex'>
-            <div className='w-1/2 bg-white rounded-lg h-[90%] flex flex-col'>
+            <div className='sm:w-1/2 bg-white rounded-lg h-[90%] flex flex-col text-black'>
 
                 {/** Header */}
                 <div className='flex py-4 px-6 items-center relative border-b border-gray-300'>
@@ -403,17 +403,17 @@ const HomeCarousel: React.FC<any> = ()=>{
                     />
                     <div className='flex-1 px-4'>
                         <div className='space-x-1'>
-                            <p className='text-xl font-medium'>
+                            <p className='text-xl font-medium text-black'>
                                 Tracking information
                             </p>
-                            <p className='text-sm'>
+                            <p className='text-sm text-black'>
                                 Tracking #: { packageData?.trackingNumber }
                             </p>
                         </div>
                     </div>
                     <div className='justify-self-end'>
                         <button
-                            className='hover:bg-[#4F4F4F]/10 p-2 rounded-lg absolute top-3 right-3'
+                            className='hover:bg-[#4F4F4F]/10 text-black p-2 rounded-lg absolute top-3 right-3'
                             onClick={()=>{
                                 document.body.classList.toggle('overflow-hidden')
                                 modalRef.current?.classList.toggle('hidden');

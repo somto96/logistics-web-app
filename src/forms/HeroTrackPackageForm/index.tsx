@@ -35,7 +35,7 @@ const HeroTrackPackageForm: React.FC<HeroTrackPackageFormProps> = ({
 
     // Styles
     let errorClasses = !!errors.trackingId ? "outline outline-red-400" : "";
-    let defaultInputClasses = "py-3 pl-4 pr-[120px] block w-full rounded-full text-sm outline-none"
+    let defaultInputClasses = "py-3 pl-4 pr-[120px] block w-full rounded-full bg-white placeholder:text-black text-sm outline-none text-black"
     let inputClasses = twMerge(defaultInputClasses, errorClasses);
 
     // Handlers
