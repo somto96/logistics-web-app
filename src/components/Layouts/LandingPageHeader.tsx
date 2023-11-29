@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React from 'react';
+import React, { MutableRefObject } from 'react';
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -16,6 +16,10 @@ const LandingPageHeader: React.FC<LandingPageHeaderProps> = ({ sticky })=>{
     // Ref
     const headerRef = React.createRef<HTMLHeadElement>();
     const hamburgerRef = React.createRef<HTMLButtonElement>();
+    let backdropRef: MutableRefObject<HTMLDivElement|null> = React.useRef<HTMLDivElement>(null);
+
+    // State
+    const [initClicked, setInitClicked] = React.useState<boolean>()
     
     // Hooks
     const pathname = usePathname()
@@ -69,6 +73,7 @@ const LandingPageHeader: React.FC<LandingPageHeaderProps> = ({ sticky })=>{
                 }
                 <Link
                     href={'/create-account'}
+                    onClick={()=> hamburgerRef.current?.click()}
                     className='min-w-10 inline-flex items-center px-4 h-10 text-sm font-medium text-center text-black bg-white rounded-full hover:bg-slate-200'>
                     Create Account
                 </Link>
@@ -97,6 +102,14 @@ const LandingPageHeader: React.FC<LandingPageHeaderProps> = ({ sticky })=>{
         };
 
     },[])
+
+    React.useEffect(()=>{
+        if (typeof window !== undefined){
+            let backdropEl = document.querySelector<HTMLDivElement>('[data-hs-overlay-backdrop-template]');
+            backdropEl?.remove()
+            document.body.style.overflow = '';
+        }
+    },[pathname])
 
     return(
         <>

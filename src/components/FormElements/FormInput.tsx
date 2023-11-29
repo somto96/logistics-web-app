@@ -13,6 +13,7 @@ React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputEl
     containerClass?: string;
     inputContainerClass?: string;
     endAdornment?: React.ReactNode;
+    startAdornment?: React.ReactNode;
 }
 
 // eslint-disable-next-line react/display-name
@@ -27,6 +28,7 @@ const FormInput = React.forwardRef<HTMLInputElement,FormInputProps>(({
     containerClass,
     inputContainerClass,
     endAdornment,
+    startAdornment,
     ...props
 },ref)=>{
 
@@ -46,7 +48,7 @@ const FormInput = React.forwardRef<HTMLInputElement,FormInputProps>(({
     // Classes
     let defaultLabelClasses =
       "block text-xs mb-2";
-    let defaultInputClasses = `py-3 pl-4 pr-[120px] block w-full rounded-lg text-sm outline-none`;
+    let defaultInputClasses = `py-3 pl-4 block w-full rounded-lg text-sm outline-none ${endAdornment ? 'pr-[120px]' : 'pr-4'} ${startAdornment ? 'pl-10' : ''}`;
     let errorClasses = isError ? "border-red-400" : "";
     let successClasses = isSuccess ? "border-brand-200" : "";
     let labelClasses = twMerge(defaultLabelClasses, labelClass);
@@ -80,13 +82,22 @@ const FormInput = React.forwardRef<HTMLInputElement,FormInputProps>(({
 
     return(
         <div className={containerClass}> 
-            <label
-                htmlFor={id}
-                className={labelClasses}
-            >
-                { label }
-            </label>
+            {
+                label &&
+                <label
+                    htmlFor={id}
+                    className={labelClasses}
+                >
+                    { label }
+                </label>
+            }
             <div className={inputContainerClasses}>
+                {
+                    startAdornment &&
+                    <div className="absolute inset-y-0 start-0 flex items-center ps-3">
+                        { startAdornment }
+                    </div>
+                }
                 <input
                     ref={ref}
                     id={id}
@@ -101,7 +112,7 @@ const FormInput = React.forwardRef<HTMLInputElement,FormInputProps>(({
                 }
             </div>
             {
-                isError &&
+                isError && errorMessage &&
                 <p className="text-xs text-red-400 mt-2" id="hs-validation-name-error-helper">
                     { errorMessage }
                 </p>

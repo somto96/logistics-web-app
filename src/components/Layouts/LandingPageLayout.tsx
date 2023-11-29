@@ -10,7 +10,7 @@ export interface LandingPageLayoutProps{
 const LandingPageLayout: React.FC<LandingPageLayoutProps> = ({ children, sticky })=>{
 
     return(
-        <div className='min-h-screen flex flex-col bg-white'>
+        <div className='min-h-screen flex flex-col bg-white text-black'>
             <LandingPageHeader sticky={sticky}/>
             <main className='flex-1 flex flex-col'>
                 { children }

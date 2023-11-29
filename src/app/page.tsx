@@ -12,9 +12,9 @@ export default function Home() {
 		<LandingPageLayout>
             <HomeCarousel/>
             <PackageDeliverySection/>
-            <SetupYourAccountSection/>
+            {/* <SetupYourAccountSection/> */}
             <DashboardPreviewSection/>
-            <TestimonialSection/>
+            {/* <TestimonialSection/> */}
             <ContactUsSection/>
         </LandingPageLayout>
 	)
