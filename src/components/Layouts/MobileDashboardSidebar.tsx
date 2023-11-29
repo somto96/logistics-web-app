@@ -15,7 +15,7 @@ interface MenuItem{
     children?: MenuItem[];
 }
 
-const DashboardSidebar: React.FC<any> = ()=>{
+const MobileDashboardSidebar: React.FC<any> = ()=>{
 
     // Hook
     const pathname = usePathname();
@@ -114,11 +114,13 @@ const DashboardSidebar: React.FC<any> = ()=>{
 
     return(
         <div 
-            id="docs-sidebar" 
-            className="bg-black h-full p-5 xl:block hidden">
+            id="hs-overlay-dashboard-admin" 
+            className="hs-overlay hs-overlay-open:translate-x-0 translate-x-full fixed top-0 end-0 transition-all duration-300 transform h-full max-w-xs w-full z-[60] bg-black hidden p-5" 
+            tabIndex={-1}
+        >
             { sidebarNav }
         </div>
     )
 }
 
-export default DashboardSidebar;
+export default MobileDashboardSidebar;

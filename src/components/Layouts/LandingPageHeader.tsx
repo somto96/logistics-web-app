@@ -33,7 +33,7 @@ const LandingPageHeader: React.FC<LandingPageHeaderProps> = ({ sticky })=>{
         { text: 'Home', href: '/' },
         { text: 'Our services', href: '#' },
         { text: 'About us', href: 'about-us' },
-        // { text: 'Sign in', href: 'sign-in' },
+        { text: 'Sign in', href: 'sign-in' },
     ];
 
     // Mobile Off canvas
@@ -71,12 +71,12 @@ const LandingPageHeader: React.FC<LandingPageHeaderProps> = ({ sticky })=>{
                         </Link>
                     ))
                 }
-                {/* <Link
+                <Link
                     href={'/create-account'}
                     onClick={()=> hamburgerRef.current?.click()}
                     className='min-w-10 inline-flex items-center px-4 h-10 text-sm font-medium text-center text-black bg-white rounded-full hover:bg-slate-200'>
                     Create Account
-                </Link> */}
+                </Link>
             </div>
         </div>
     )
@@ -153,11 +153,11 @@ const LandingPageHeader: React.FC<LandingPageHeaderProps> = ({ sticky })=>{
                             </Link>
                         ))
                     }
-                    {/* <Link
+                    <Link
                         href={'/create-account'}
                         className='min-w-10 inline-flex items-center px-4 h-10 text-sm font-medium text-center text-black bg-white rounded-full hover:bg-slate-200'>
                         Create Account
-                    </Link> */}
+                    </Link>
                 </div>
 
                 <button 

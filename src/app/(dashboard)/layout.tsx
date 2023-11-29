@@ -8,8 +8,8 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="h-screen flex flex-col">
       <DashboardPageHeader />
-      <div className="flex-1 grid md:grid-cols-5 no-scrollbar">
-        <div className="col-span-1">
+      <div className="flex-1 grid xl:grid-cols-5 no-scrollbar">
+        <div className="col-span-1 xl:block hidden">
           <DashboardSidebar />
         </div>
         <div
@@ -17,7 +17,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
             height: 'calc(100vh - 84px)'
           }}
           id="main-content"
-          className="relative flex flex-col col-span-4 overflow-y-scroll no-scrollbar bg-white"
+          className="relative flex flex-col xl:col-span-4 overflow-y-scroll no-scrollbar bg-white"
         >
           <main className="flex-1">{children}</main>
         </div>

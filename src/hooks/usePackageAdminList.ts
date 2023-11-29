@@ -7,42 +7,60 @@ import axios, { AxiosResponse } from "axios";
 import useSWR from 'swr'
 import { AUTH_KEY } from "@/constants/cookie.config";
 import { SignInResponseData } from "@/types/responses/SignInResponseData";
-
-function getSessionToken() {
-    const session = getCookie(AUTH_KEY)?.toString();
-
-    if (session) {
-        let parsedSession = JSON.parse(session);
-        return (parsedSession as SignInResponseData)?.token
-    }
-    
-}
+import backendClient from '@/services/ImperiumApiClient';
+import { getSessionToken } from "@/utils/sessionUtils";
+import { useRouter } from "next/navigation";
+import React from 'react'
+import { ToastNotify } from "@/utils/helperFunctions/toastNotify";
 
 
 export function usePackagaAdminList(query: PaginatedQuery){
 
-    const client = axios.create({
-        baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-        headers:{
-            'Authorization': `Bearer ${getSessionToken()}`
-        },
-    });
+    backendClient.setToken(getSessionToken() || '')
+
+    // Hooks
+    const router = useRouter()
+
+    // State
+    const [loading, setLoading] = React.useState<boolean>(false);
+    const [data, setData] = React.useState<PackageAdminListData[]>([]);
+    const [cacheHash, setCacheHash] = React.useState({});
     
 
-    // Fetcher
-    const fetcher = (url: string) => client.post(url, query).
-    then((res: AxiosResponse<ApiResponse<PaginatedResponse<PackageAdminListData>>>) => res.data);
+    const fetchAdminPackageList = async(params: PaginatedQuery)=>{
+        // setLoading(true)
+        backendClient.setToken(getSessionToken() || '')
+        try {
+            let response = await backendClient.getAdminPackageList(params)
 
-    // Fetching hook
-    const apiUrl = `/Package/adminlist`
-    const { data, error, mutate } = useSWR(apiUrl, fetcher, { shouldRetryOnError: false });
+            backendClient.setLoading('admin', false);
+            if (response.responseObject) {
+                setData(response.responseObject.items)
+            }
+            
+        } catch (err: any) {
+            backendClient.setLoading('admin', false);
+            setLoading(false)
+            if (err?.response?.status === 401 && !getSessionToken()) {
+                router.replace('/sign-in')
+            }
+            else{
+                ToastNotify({
+                    type: 'error',
+                    message: err?.response?.data?.message || err?.response?.data?.title,
+                    position: 'top-right',
+                });
+            }
+        }
+    }
 
-    console.log(data);
+    React.useEffect(()=>{
+        fetchAdminPackageList(query)
+    },[query])
+
 
     return {
-        data: data?.responseObject,
-        isLoading: !error && !data,
-        error: error,
-        mutate: mutate
+        data: data,
+        isLoading: loading,
     }
 }
