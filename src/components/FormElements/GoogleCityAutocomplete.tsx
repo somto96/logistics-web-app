@@ -52,7 +52,7 @@ const GoogleCityAutocomplete: React.FC<GooglePlacesAutocompleteProps> = ({
 
   return (
    <ClickAwayListener onClickAway={()=> setIsFocused(false)}>
-     <div className='relative'>
+     <div className='relative z-10'>
       <FormInput
         onChange={handleChange}
         onFocus={handleFocus}

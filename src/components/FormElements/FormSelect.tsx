@@ -65,7 +65,7 @@ const FormSelect: React.FC<FormSelectProps> = ({
 
     return (
     <ClickAwayListener onClickAway={()=> setIsFocused(false)}>
-        <div className='relative'>
+        <div className='relative z-10'>
         <FormInput
             name='dropdown'
             onFocus={handleFocus}

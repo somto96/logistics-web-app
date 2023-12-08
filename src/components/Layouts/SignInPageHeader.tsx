@@ -4,10 +4,21 @@ import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
 import { useSession } from '@/hooks/useSession';
+import { usePathname } from 'next/navigation';
 
 const SignInPageHeader: React.FC<any> = ()=>{
 
     let session = useSession()
+    const pathname = usePathname()
+
+    // Effect
+    React.useEffect(()=>{
+        if (typeof window !== undefined){
+            let backdropEl = document.querySelector<HTMLDivElement>('[data-hs-overlay-backdrop-template]');
+            backdropEl?.remove()
+            document.body.style.overflow = '';
+        }
+    },[pathname])
 
     return(
         <header 

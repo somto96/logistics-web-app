@@ -1,16 +1,17 @@
 import { AUTH_KEY } from "@/constants/cookie.config";
 import { CreateAccountPayload } from "@/types/requests/CreateAccountPayload";
+import { CreatePackagePayload } from "@/types/requests/CreatePackagePayload";
 import { CreatePasswordPayload } from "@/types/requests/CreatePasswordPayload";
 import { UpdatePackagePayload } from "@/types/requests/PackagePayload";
 import { PaginatedQuery } from "@/types/requests/PaginatedQuery";
 import { SignInPayload } from "@/types/requests/SignInPayload";
 import { ApiResponse } from "@/types/responses/ApiResponse";
 import { PackageAdminListData } from "@/types/responses/PackageAdminListData";
+import { PackageCreatedData } from "@/types/responses/PackageCreatedData";
 import { PackageTrackingData } from "@/types/responses/PackageTrackingData";
 import { PaginatedResponse } from "@/types/responses/PaginatedResponse";
 import { SignInResponseData } from "@/types/responses/SignInResponseData";
 import axios, { AxiosInstance } from "axios";
-import { getCookie } from "cookies-next";
 
 
 class ImperiumApiClient {
@@ -109,10 +110,42 @@ class ImperiumApiClient {
         return response.data
     }
 
+    public async getCustomerPackageList(query: PaginatedQuery): Promise<ApiResponse<PaginatedResponse<PackageAdminListData>>>{
+        const url = `/Package/customerlist`;
+        const cacheKey = `/Package/customerlist/${JSON.stringify(query)}`;
+
+        // First check cache
+        const cachedData = this.cache.get(cacheKey);
+        if (cachedData && Date.now() - cachedData.timestamp <= this.cacheTTL * 1000) {
+            return cachedData.data;
+        }
+
+        this.adminListLoading = true;
+        let response = await this._axiosInstance.post<ApiResponse<PaginatedResponse<PackageAdminListData>>>(url, query);
+
+        this.adminListLoading = false;
+        // Update the cache with the fresh data
+        this.cache.set(cacheKey, { data: response.data, timestamp: Date.now() });
+
+        return response.data
+    }
+
     public async updatePackageStatus(payload: UpdatePackagePayload): Promise<ApiResponse<string>>{
         const url = `/Package/update`;
 
         let response = await this._axiosInstance.post<ApiResponse<string>>(url, payload);
+
+        
+        // Reset cache
+        this.cache.clear();
+
+        return response.data
+    }
+
+    public async createNewPackage(payload: CreatePackagePayload): Promise<ApiResponse<PackageCreatedData>>{
+        const url = `/Package/create`;
+
+        let response = await this._axiosInstance.post<ApiResponse<PackageCreatedData>>(url, payload);
 
         
         // Reset cache

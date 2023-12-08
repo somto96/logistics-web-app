@@ -198,7 +198,7 @@ const CreateAccountForm: React.FC<SignInFormProps> = ({
                     </div>
                     <div className="sm:p-5 p-3 z-[30]">
                         <FormSelect
-                            label="CITY"
+                            label="STATE"
                             className="border-[#333333] border"
                             // endAdornment={
                             //     <GrLocation size={20} />

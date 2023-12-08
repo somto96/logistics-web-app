@@ -256,9 +256,9 @@ const DashboardFilter: React.FC<DashboardFilterProps> = ({
 
     return(
         
-        <div className='relative'>
-            <div className="flex items-center p-5 gap-8">
-                <div>
+        <div className='relative overflow-x-scroll'>
+            <div className="flex items-center p-5 gap-8 flex-wrap">
+                <div className='w-full sm:w-auto'>
                     <p className="font-bold">
                         All Deliveries
                     </p>
@@ -268,9 +268,10 @@ const DashboardFilter: React.FC<DashboardFilterProps> = ({
                 </div>
 
                 {/** Filters */}
-                <div className={`gap-8 flex items-center flex-1`}>
+                <div className={`gap-8 flex items-center flex-1 flex-wrap`}>
                     <FormInput
                         className="border-site-gray-border border py-2 rounded-full text-sm"
+                        containerClass='w-full sm:w-auto'
                         labelClass="hidden"
                         placeholder="Tracking ID"
                         startAdornment={
@@ -306,7 +307,7 @@ const DashboardFilter: React.FC<DashboardFilterProps> = ({
                 </div>
 
                 {/** Actions */}
-                <div className='flex items-center justify-end gap-4'>
+                <div className='flex items-center justify-end gap-4 w-full sm:w-auto'>
                     <button
                         onClick={handleClear}
                         className={`min-w-10 inline-flex items-center px-4 h-10 text-sm text-center rounded-lg border-black border`}
