@@ -241,6 +241,24 @@ export default function BackOfficeHome() {
         }
     }
 
+    const handleUpdateTracking = (packageData?: PackageAdminListData)=>{
+        if (packageData) {
+            setSelectedPackage(packageData)
+            setViews('tracking')
+        }
+    }
+
+    const handleAssignPackage = (packageData?: PackageAdminListData)=>{
+        if (packageData) {
+            if (!handleAssignBtnLabelText(packageData.status).disabled) {
+                if (!rowHash[packageData.trackingNumber]) {
+                    handleSelect(packageData.trackingNumber);
+                }
+                handleAssign();
+            }
+        }
+    }
+
     // Helpers
     const getStatusColorClass = (status: PackageStatus) =>{
         switch (status) {
@@ -499,6 +517,8 @@ export default function BackOfficeHome() {
                     packageData={selectedPackage}
                     onGoBack={handleGoBack}
                     onAddDelivery={handleGoBack}
+                    onUpdateTracking={handleUpdateTracking}
+                    onAssign={handleAssignPackage}
                 />
             }
             { 

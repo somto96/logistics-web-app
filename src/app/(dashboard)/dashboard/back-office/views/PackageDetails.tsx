@@ -4,7 +4,7 @@ import CustomSkeleton from '@/components/CustomSkeleton';
 import { useRiders } from '@/hooks/useRiders';
 import { useSession } from '@/hooks/useSession';
 import { PaginatedQuery } from '@/types/requests/PaginatedQuery';
-import { PackageAdminListData } from '@/types/responses/PackageAdminListData';
+import { PackageAdminListData, PackageStatus } from '@/types/responses/PackageAdminListData';
 import { ToastNotify } from '@/utils/helperFunctions/toastNotify';
 import moment from 'moment';
 import Image from 'next/image';
@@ -16,10 +16,12 @@ export interface AssignDeliveryProps{
     packageData?: PackageAdminListData;
     onAddDelivery?: ()=> void;
     onGoBack?: ()=> void;
+    onUpdateTracking?: (packageData?: PackageAdminListData)=> void;
+    onAssign?: (packageData?: PackageAdminListData)=> void;
 }
 
 const PackageDetails: React.FC<AssignDeliveryProps> = ({
-    packageData, onAddDelivery, onGoBack
+    packageData, onAddDelivery, onGoBack, onUpdateTracking, onAssign
 })=>{
 
     // Hooks
@@ -33,6 +35,33 @@ const PackageDetails: React.FC<AssignDeliveryProps> = ({
             pageSize: 10,
         }
     });
+
+    // Helpers
+    const handleAssignBtnLabelText = (status?: PackageStatus) => {
+        switch (status) {
+            case PackageStatus.AVAILABLE_FOR_PICKUP:
+                return {
+                    text: 'Assign',
+                    disabled: false
+                };
+            case PackageStatus.UNDELIVERED:
+                return {
+                    text: 'Reassign',
+                    disabled: false
+                };
+            default:
+                return {
+                    text: 'Assigned',
+                    disabled: true
+                };
+        }
+    };
+    const handleUpdateTracking = ()=>{
+        onUpdateTracking && onUpdateTracking(packageData);
+    }
+    const handleAssign = ()=>{
+        onAssign && onAssign(packageData)
+    }
 
     // Fetched data
     // const { data, isLoading, error } = useRiders(query);
@@ -197,16 +226,17 @@ const PackageDetails: React.FC<AssignDeliveryProps> = ({
                     Delete
                 </button>
                 <button
-                    // onClick={handleAssign}
+                    onClick={handleUpdateTracking}
                     className={`min-w-[136px] inline-flex items-center justify-center px-4 h-10 text-sm text-center rounded-full text-black bg-white border border-black`}
                 >
                     Update Tracking
                 </button>
                 <button
-                    // onClick={handleAssign}
-                    className={`min-w-[136px] inline-flex items-center justify-center px-4 h-10 text-sm text-center rounded-full text-white bg-black`}
+                    disabled={handleAssignBtnLabelText(packageData?.status).disabled}
+                    onClick={handleAssign}
+                    className={`min-w-[136px] inline-flex items-center justify-center px-4 h-10 text-sm text-center rounded-full ${handleAssignBtnLabelText(packageData?.status).disabled ? 'text-black bg-white border border-black' : 'text-white bg-black'}`}
                 >
-                    Assign
+                    { handleAssignBtnLabelText(packageData?.status).text }
                 </button>
             </div>
 
