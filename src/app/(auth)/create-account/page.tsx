@@ -7,11 +7,13 @@ export default function CreateAccountPage() {
         <>
             <SignInPageHeader/>
             <div className="h-screen w-full bg-[url('/images/pngs/slider-two.png')] bg-no-repeat bg-cover bg-center flex items-center justify-center overflow-y-scroll">
-                <div className="h-screen">
+                <div className="h-full pt-5">
                     <h1 className="text-white font-medium tracking-wide text-3xl text-center mb-8">
                         Create Account
                     </h1>
-                    <CreateAccountForm/>
+                    <div className="flex justify-center pb-5">
+                        <CreateAccountForm/>
+                    </div>
                 </div>
             </div>
         </>

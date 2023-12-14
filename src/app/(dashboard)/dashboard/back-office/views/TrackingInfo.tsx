@@ -248,7 +248,7 @@ const TrackingInfo: React.FC<TrackingInfoProps> = ({
                             placeholder='Select Status'
                             id='status filter'
                             options={statusOptions}
-                            className='border border-site-gray-border min-w-[150px] py-2 rounded-full'
+                            className='border border-site-gray-border min-w-[150px] py-2 rounded-full pr-4'
                             onChange={(e)=>{
                                 console.log(e.target.value)
                                 setIsError(false)

@@ -6,7 +6,7 @@ import { checkAccessToDashboardPages } from "@/utils/guardUtils";
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   // await checkAccessToDashboardPages();
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-screen flex flex-col text-black">
       <DashboardPageHeader />
       <div className="flex-1 grid xl:grid-cols-5 no-scrollbar">
         <div className="col-span-1 xl:block hidden">

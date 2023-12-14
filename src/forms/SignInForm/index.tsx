@@ -97,7 +97,7 @@ const SignInForm: React.FC<SignInFormProps> = ({
     });
 
     return(
-        <form className="sm:w-[500px] w-[85%] rounded-xl shadow-lg bg-white/90" onSubmit={handleFormSubmit}>
+        <form className="sm:w-[500px] w-[85%] rounded-xl shadow-lg bg-white/90 text-black" onSubmit={handleFormSubmit}>
             <div className="p-5 border-b border-gray-400">
                 <p className="text-[22px] font-medium tracking-wide">
                     Sign in
