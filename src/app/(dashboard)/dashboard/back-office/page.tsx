@@ -11,7 +11,6 @@ import CustomSkeleton from "@/components/CustomSkeleton";
 import { ToastNotify } from "@/utils/helperFunctions/toastNotify";
 import AssignDelivery from "./views/AssignDelivery";
 import { useRouter } from "next/navigation";
-import { useSession } from "@/hooks/useSession";
 import FormInput from "@/components/FormElements/FormInput";
 import { CiSearch } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
@@ -23,6 +22,7 @@ import { PaginatedResponse } from "@/types/responses/PaginatedResponse";
 import PackageDetails from "./views/PackageDetails";
 import TrackingInfo from "./views/TrackingInfo";
 import { UpdatePackagePayload } from "@/types/requests/PackagePayload";
+import { useAuth } from "@/providers/AuthProvider";
 
 
 backendClient.setToken(getSessionToken() || '');
@@ -33,7 +33,8 @@ export default function BackOfficeHome() {
 
     // Hooks
     const router = useRouter()
-    const session = useSession();
+    // const session = useSession();
+    const { session } = useAuth()
 
     type RowHash = {
         [key: string]: any;

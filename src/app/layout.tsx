@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 import '@/styles/aos.css'
+import 'react-spring-bottom-sheet/dist/style.css'
 import Providers from '@/providers'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'

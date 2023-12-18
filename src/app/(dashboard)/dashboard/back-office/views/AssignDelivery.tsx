@@ -3,6 +3,7 @@
 import CustomSkeleton from '@/components/CustomSkeleton';
 import { useRiders } from '@/hooks/useRiders';
 import { useSession } from '@/hooks/useSession';
+import { useAuth } from '@/providers/AuthProvider';
 import { PaginatedQuery } from '@/types/requests/PaginatedQuery';
 import { PackageAdminListData } from '@/types/responses/PackageAdminListData';
 import { ToastNotify } from '@/utils/helperFunctions/toastNotify';
@@ -23,7 +24,8 @@ const AssignDelivery: React.FC<AssignDeliveryProps> = ({
 
     // Hooks
     const router = useRouter()
-    const session = useSession();
+    // const session = useSession();
+    const { session } = useAuth()
 
     // State
     const [query, setQuery] = React.useState<PaginatedQuery>({

@@ -3,12 +3,12 @@
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
-import { useSession } from '@/hooks/useSession';
 import { RxHamburgerMenu } from 'react-icons/rx';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import MobileDashboardSidebar from './MobileDashboardSidebar';
 import UserProfileDropdown from './UserProfileDropdown';
 import AddNewPackageForm from '@/forms/AddNewPackageForm';
+import { useAuth } from '@/providers/AuthProvider';
 
 const DashboardPageHeader: React.FC<any> = ()=>{
 
@@ -16,10 +16,16 @@ const DashboardPageHeader: React.FC<any> = ()=>{
     const hamburgerRef = React.createRef<HTMLButtonElement>();
     const modalRef = React.createRef<HTMLDivElement>()
 
-    const session = useSession();
+    // const session = useSession();
+    const { session, signOut } = useAuth()
     const pathname = usePathname()
+    const router = useRouter()
 
     // Handlers
+    const handleLogout = ()=>{
+        signOut()
+        router.replace('/sign-in');
+    }
     const toggleStepperModal = ()=>{
         document.body.classList.toggle('overflow-hidden')
         modalRef.current?.classList.toggle('hidden');
@@ -91,6 +97,7 @@ const DashboardPageHeader: React.FC<any> = ()=>{
                 <UserProfileDropdown
                     session={session}
                     containerClassname='xl:inline-flex hidden'
+                    logoutCb={handleLogout}
                 />
 
                 <button 

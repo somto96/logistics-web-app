@@ -14,6 +14,7 @@ import backendClient from '@/services/ImperiumApiClient';
 import { setCookie } from "cookies-next";
 import { AUTH_KEY } from "@/constants/cookie.config";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/providers/AuthProvider";
 
 export interface SignInFormProps{
     // onFormSubmit?: (state: SignInFormState) => void;
@@ -25,6 +26,7 @@ const SignInForm: React.FC<SignInFormProps> = ({
 
     // Hooks
     const router = useRouter();
+    const { setUser } = useAuth()
 
     // State
     const [visible, setVisible] = React.useState<boolean>(false);
@@ -65,9 +67,13 @@ const SignInForm: React.FC<SignInFormProps> = ({
                 let response = await backendClient.signIn(payload)
     
                 if (response.responseObject) {
-                    setLoading(false)
+                    
                     
                     setCookie(AUTH_KEY, JSON.stringify(response.responseObject));
+                    setUser(response.responseObject)
+
+                    setLoading(false)
+
                     ToastNotify({
                         type: 'success',
                         message: response.message,
@@ -76,6 +82,10 @@ const SignInForm: React.FC<SignInFormProps> = ({
                     
                     if (response.responseObject.role === 'Company') {
                         router.replace('/dashboard/user')
+                    }
+                    else 
+                    if (response.responseObject.role.toLowerCase() === 'rider'){
+                        router.replace('/riders/deliveryHistory')
                     }
                     else{
                         router.replace('/dashboard/back-office')

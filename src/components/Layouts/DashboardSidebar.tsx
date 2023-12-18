@@ -6,7 +6,7 @@ import React from "react";
 import { MdOutlineDashboard } from "react-icons/md";
 import { FiSettings } from "react-icons/fi";
 import { LuUsers } from "react-icons/lu";
-import { useSession } from "@/hooks/useSession";
+import { useAuth } from "@/providers/AuthProvider";
 
 interface MenuItem{
     icon?: React.ReactNode;
@@ -20,7 +20,8 @@ const DashboardSidebar: React.FC<any> = ()=>{
 
     // Hook
     const pathname = usePathname();
-    const session = useSession()
+    // const session = useSession()
+    const { session } = useAuth()
 
     // Classes
     const activeClass = 'flex items-center gap-x-3.5 py-2 px-2.5 bg-gray-100 text-black font-medium rounded-lg hover:bg-gray-100';

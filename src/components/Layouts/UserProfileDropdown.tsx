@@ -2,17 +2,18 @@ import React from "react";
 import Image from 'next/image';
 import { SignInResponseData } from "@/types/responses/SignInResponseData";
 import { twMerge } from "tailwind-merge";
-import { deleteCookie } from "cookies-next";
-import { AUTH_KEY } from "@/constants/cookie.config";
 import { useRouter } from "next/navigation";
 
 export interface UserProfileDropdownProps{
     session?: SignInResponseData;
     containerClassname?: string;
     disabled?: boolean;
+    logoutCb?: ()=> void;
 }
 
-const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({ session, containerClassname, disabled })=>{
+const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({ 
+    session, containerClassname, disabled, logoutCb 
+})=>{
 
     // Hooks
     const router = useRouter();
@@ -23,8 +24,8 @@ const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({ session, cont
 
     // Handlers
     const handleLogout = ()=>{
-        deleteCookie(AUTH_KEY)
-        router.replace('/sign-in');
+        logoutCb && logoutCb()
+
     }
 
     if (disabled) {

@@ -1,8 +1,5 @@
 "use client"
 
-import CustomSkeleton from '@/components/CustomSkeleton';
-import { useRiders } from '@/hooks/useRiders';
-import { useSession } from '@/hooks/useSession';
 import { PaginatedQuery } from '@/types/requests/PaginatedQuery';
 import { PackageAdminListData, PackageStatus } from '@/types/responses/PackageAdminListData';
 import { ToastNotify } from '@/utils/helperFunctions/toastNotify';
@@ -23,10 +20,6 @@ export interface AssignDeliveryProps{
 const PackageDetails: React.FC<AssignDeliveryProps> = ({
     packageData, onAddDelivery, onGoBack, onUpdateTracking, onAssign
 })=>{
-
-    // Hooks
-    const router = useRouter()
-    const session = useSession();
 
     // State
     const [query, setQuery] = React.useState<PaginatedQuery>({
