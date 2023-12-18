@@ -3,19 +3,14 @@
 import { useFormik } from "formik";
 import React from "react";
 import FormInput from "@/components/FormElements/FormInput";
-import Link from "next/link";
-import { LuMail } from "react-icons/lu";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import FormButton from "@/components/FormElements/FormButton";
-import { SignInPayload } from "@/types/requests/SignInPayload";
 import { ToastNotify } from "@/utils/helperFunctions/toastNotify";
 import backendClient from '@/services/ImperiumApiClient';
 import { setCookie } from "cookies-next";
 import { AUTH_KEY } from "@/constants/cookie.config";
 import { useRouter } from "next/navigation";
-import { CreateFormState } from "../CreateAccountForm/schema";
 import { CreatePasswordFormSchema, CreatePasswordFormState } from "./schema";
-import { CreateAccountPayload } from "@/types/requests/CreateAccountPayload";
 import { CreatePasswordPayload } from "@/types/requests/CreatePasswordPayload";
 
 export interface CreatePasswordFormProps{

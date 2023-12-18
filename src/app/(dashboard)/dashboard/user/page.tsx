@@ -23,6 +23,7 @@ import TrackingInfo from "../back-office/views/TrackingInfo";
 import moment from "moment";
 import { GoArrowRight } from "react-icons/go";
 import { useCompanyAnalytics } from "@/hooks/useCompanyAnalytics";
+import { useAuth } from "@/providers/AuthProvider";
 
 
 backendClient.setToken(getSessionToken() || '');
@@ -33,7 +34,8 @@ export default function BackOfficeHome() {
 
     // Hooks
     const router = useRouter()
-    const session = useSession();
+    // const session = useSession();
+    const { session } = useAuth()
 
     type RowHash = {
         [key: string]: any;

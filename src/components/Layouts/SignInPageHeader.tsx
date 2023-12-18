@@ -3,12 +3,14 @@
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
-import { useSession } from '@/hooks/useSession';
+// import { useSession } from '@/hooks/useSession';
 import { usePathname } from 'next/navigation';
+import { useAuth } from '@/providers/AuthProvider';
 
 const SignInPageHeader: React.FC<any> = ()=>{
 
-    let session = useSession()
+    // let session = useSession()
+    const { session } = useAuth()
     const pathname = usePathname()
 
     // Effect

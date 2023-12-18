@@ -48,7 +48,7 @@ const FormTextArea = React.forwardRef<HTMLTextAreaElement, FormTextAreaProps>(({
     // Classes
     let defaultLabelClasses =
       "block text-xs mb-2";
-    let defaultInputClasses = `py-3 pl-4 block w-full rounded-lg text-sm outline-none ${endAdornment ? 'pr-[120px]' : 'pr-4'} ${startAdornment ? 'pl-10' : ''}`;
+    let defaultInputClasses = `py-3 pl-4 block w-full rounded-lg text-sm outline-none bg-white ${endAdornment ? 'pr-[120px]' : 'pr-4'} ${startAdornment ? 'pl-10' : ''}`;
     let errorClasses = isError ? "border-red-400" : "";
     let successClasses = isSuccess ? "border-brand-200" : "";
     let labelClasses = twMerge(defaultLabelClasses, labelClass);

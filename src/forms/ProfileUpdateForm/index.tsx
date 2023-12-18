@@ -3,32 +3,26 @@
 import { useFormik } from "formik";
 import React from "react";
 import FormInput from "@/components/FormElements/FormInput";
-import Link from "next/link";
 import { LuMail } from "react-icons/lu";
 import FormButton from "@/components/FormElements/FormButton";
-import { ToastNotify } from "@/utils/helperFunctions/toastNotify";
-import backendClient from '@/services/ImperiumApiClient';
-import { useRouter } from "next/navigation";
 import { FiUser, FiPhone } from "react-icons/fi";
 import { GrLocation } from "react-icons/gr";
 import GoogleCityAutocomplete from "@/components/FormElements/GoogleCityAutocomplete";
 import FormSelect from "@/components/FormElements/FormSelect";
 import { NigerianStates } from "@/constants/location.config";
-import { useSession } from "@/hooks/useSession";
 import { ProfileUpdateFormSchema, ProfileUpdateFormState } from "./schema";
 import { SignInResponseData } from "@/types/responses/SignInResponseData";
+import { CompanyData } from "@/types/responses/CompanyData";
 
 export interface ProfileUpdateFormProp{
     userSession?: SignInResponseData;
+    companyData?: CompanyData;
     // onFormSubmit?: (state: SignInFormState) => void;
 }
 
 const ProfileUpdateForm: React.FC<ProfileUpdateFormProp> = ({
-    userSession
+    userSession, companyData
 })=>{
-
-    // Hooks
-    const router = useRouter();
 
     // State
     const [visible, setVisible] = React.useState<boolean>(false);
@@ -36,12 +30,12 @@ const ProfileUpdateForm: React.FC<ProfileUpdateFormProp> = ({
 
     // Initial values
     let initialValues: ProfileUpdateFormState = {
-        contactFullName: userSession?.name || '',
-        address: "",
-        city: "",
-        state: "",
-        email: userSession?.email || '',
-        phoneNumber: userSession?.phoneNumber || ''
+        contactFullName: companyData?.name || '',
+        address: companyData?.address || '',
+        city: companyData?.city || '',
+        state: companyData?.state || '',
+        email: companyData?.emailAddress.address || '',
+        phoneNumber: companyData?.phoneNumber || ''
     }
 
     // Handlers

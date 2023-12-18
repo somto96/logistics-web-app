@@ -5,11 +5,13 @@ import { CreatePasswordPayload } from "@/types/requests/CreatePasswordPayload";
 import { UpdatePackagePayload } from "@/types/requests/PackagePayload";
 import { PaginatedQuery } from "@/types/requests/PaginatedQuery";
 import { SignInPayload } from "@/types/requests/SignInPayload";
+import { UpdateRiderPayload } from "@/types/requests/UpdateRider";
 import { ApiResponse } from "@/types/responses/ApiResponse";
 import { PackageAdminListData } from "@/types/responses/PackageAdminListData";
 import { PackageCreatedData } from "@/types/responses/PackageCreatedData";
 import { PackageTrackingData } from "@/types/responses/PackageTrackingData";
 import { PaginatedResponse } from "@/types/responses/PaginatedResponse";
+import { RiderData } from "@/types/responses/RiderData";
 import { SignInResponseData } from "@/types/responses/SignInResponseData";
 import axios, { AxiosInstance } from "axios";
 
@@ -21,6 +23,7 @@ class ImperiumApiClient {
     private cache: Map<string, { data: any; timestamp: number }> = new Map();
     public cacheTTL: number = 60 // 1 minute
     public adminListLoading = false;
+    public riderListLoading = false;
     
     // private _token = process.env.TOKEN
 
@@ -88,6 +91,10 @@ class ImperiumApiClient {
         if (key === 'admin') {
             this.adminListLoading = value;
         }
+
+        if (key === 'rider') {
+            this.riderListLoading = value;
+        }
     }
 
     public async getAdminPackageList(query: PaginatedQuery): Promise<ApiResponse<PaginatedResponse<PackageAdminListData>>>{
@@ -130,11 +137,61 @@ class ImperiumApiClient {
         return response.data
     }
 
+    public async getRiderPackageList(query: PaginatedQuery): Promise<ApiResponse<PaginatedResponse<PackageAdminListData>>>{
+        const url = `/Package/riderList`;
+        const cacheKey = `/Package/riderList/${JSON.stringify(query)}`;
+
+        // First check cache
+        const cachedData = this.cache.get(cacheKey);
+        if (cachedData && Date.now() - cachedData.timestamp <= this.cacheTTL * 1000) {
+            return cachedData.data;
+        }
+
+        // this.adminListLoading = true;
+        let response = await this._axiosInstance.post<ApiResponse<PaginatedResponse<PackageAdminListData>>>(url, query);
+
+        // this.adminListLoading = false;
+        // Update the cache with the fresh data
+        this.cache.set(cacheKey, { data: response.data, timestamp: Date.now() });
+
+        return response.data
+    }
+
+    public async getSinglePackage(id: string): Promise<ApiResponse<PackageAdminListData>>{
+        const cacheKey = `/Package/id/${id}`;
+
+        // First check cache
+        const cachedData = this.cache.get(cacheKey);
+        if (cachedData && Date.now() - cachedData.timestamp <= this.cacheTTL * 1000) {
+            return cachedData.data;
+        }
+
+        // this.adminListLoading = true;
+        let response = await this._axiosInstance.get<ApiResponse<PackageAdminListData>>(cacheKey);
+
+        // this.adminListLoading = false;
+        // Update the cache with the fresh data
+        this.cache.set(cacheKey, { data: response.data, timestamp: Date.now() });
+
+        return response.data
+    }
+
     public async updatePackageStatus(payload: UpdatePackagePayload): Promise<ApiResponse<string>>{
         const url = `/Package/update`;
 
         let response = await this._axiosInstance.post<ApiResponse<string>>(url, payload);
 
+        
+        // Reset cache
+        this.cache.clear();
+
+        return response.data
+    }
+
+    public async updateRiderProfile(payload: UpdateRiderPayload): Promise<ApiResponse<RiderData>>{
+        const url = `/Rider/update`;
+
+        let response = await this._axiosInstance.post<ApiResponse<RiderData>>(url, payload);
         
         // Reset cache
         this.cache.clear();

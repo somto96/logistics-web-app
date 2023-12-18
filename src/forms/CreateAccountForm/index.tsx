@@ -107,7 +107,7 @@ const CreateAccountForm: React.FC<SignInFormProps> = ({
     });
 
     return(
-        <form className="sm:w-[820px] w-[90%] rounded-xl shadow-lg bg-white/90" onSubmit={handleFormSubmit}>
+        <form className="sm:w-[820px] w-[90%] rounded-xl shadow-lg bg-white/90 text-black" onSubmit={handleFormSubmit}>
             <div className="p-5 border-b border-gray-400">
                 <p className="text-lg tracking-wide text-center">
                     Welcome, get started on joining our growing members

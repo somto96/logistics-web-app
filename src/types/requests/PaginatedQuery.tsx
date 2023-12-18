@@ -9,5 +9,7 @@ export interface PaginatedQuery{
     },
     "textFilter"?: {
         "keyword": string; // Tracking number
-    }
+    },
+    "status"?: number;
+    "riderId"?: string;
 }

@@ -7,10 +7,11 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { FiSettings } from "react-icons/fi";
 import { LuUsers } from "react-icons/lu";
 import UserProfileDropdown from "./UserProfileDropdown";
-import { useSession } from "@/hooks/useSession";
+// import { useSession } from "@/hooks/useSession";
 import { RxExit } from "react-icons/rx";
 import { AUTH_KEY } from "@/constants/cookie.config";
 import { deleteCookie } from "cookies-next";
+import { useAuth } from "@/providers/AuthProvider";
 
 interface MenuItem{
     icon?: React.ReactNode;
@@ -24,7 +25,8 @@ const MobileDashboardSidebar: React.FC<any> = ()=>{
 
     // Hook
     const pathname = usePathname();
-    const session = useSession()
+    // const session = useSession()
+    const { session, signOut } = useAuth()
     const router = useRouter()
 
     // Classes
@@ -47,7 +49,7 @@ const MobileDashboardSidebar: React.FC<any> = ()=>{
 
     // Handlers
     const handleLogout = ()=>{
-        deleteCookie(AUTH_KEY)
+        signOut()
         router.replace('/sign-in');
     }
 
