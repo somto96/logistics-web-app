@@ -81,7 +81,7 @@ const MobileDashboardSidebar: React.FC<any> = ()=>{
                 <li>
                     <Link 
                         className={isActiveRoute("back-office") || isActiveRoute("user") ? activeClass : inactiveClass} 
-                        href={session?.role.toLocaleLowerCase() === 'admin' ? '/dashboard/backoffice' : '/dashboard/user'}
+                        href={session?.role.toLocaleLowerCase() === 'admin' ? '/dashboard/back-office' : '/dashboard/user'}
                         onClick={toggleHamburger}
                     >
                         <MdOutlineDashboard size={20} />
@@ -112,7 +112,7 @@ const MobileDashboardSidebar: React.FC<any> = ()=>{
                                 >
                                     <Link 
                                         className={`flex items-center gap-x-3.5 py-2 px-2.5 ${isActiveRoute('customers') ? 'text-black' : 'text-gray-400'} text-sm hover:text-black `}
-                                        href="#"
+                                        href="/dashboard/back-office/user-management/customers"
                                         onClick={toggleHamburger}
                                     >
                                     {/* <MdOutlineDashboard size={20} /> */}
@@ -120,7 +120,7 @@ const MobileDashboardSidebar: React.FC<any> = ()=>{
                                     </Link>
                                     <Link 
                                         className={`flex items-center gap-x-3.5 py-2 px-2.5 ${isActiveRoute('riders') ? 'text-black' : 'text-gray-400'} text-sm hover:text-black `}
-                                        href="#"
+                                        href="/dashboard/back-office/user-management/riders"
                                         onClick={toggleHamburger}
                                     >
                                     {/* <MdOutlineDashboard size={20} /> */}
@@ -137,7 +137,7 @@ const MobileDashboardSidebar: React.FC<any> = ()=>{
                         <Link 
                             onClick={toggleHamburger}
                             className={isActiveRoute('settings') ? activeClass : inactiveClass} 
-                            href={session?.role.toLocaleLowerCase() === 'admin' ? '/dashboard/backoffice/settings' : '/dashboard/user/settings'}
+                            href={session?.role.toLocaleLowerCase() === 'admin' ? '/dashboard/back-office/settings' : '/dashboard/user/settings'}
                         >
                             <FiSettings size={20} />
                             Settings

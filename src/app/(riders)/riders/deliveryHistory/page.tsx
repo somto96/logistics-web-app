@@ -36,7 +36,7 @@ export default function DeliveryHistory() {
             pageNumber: 1,
             pageSize: 20,
         },
-        status: 7,
+        status: 7, // All
         riderId: session?.id
     });
     const [data, setData] = React.useState<PaginatedResponse<PackageAdminListData>>()

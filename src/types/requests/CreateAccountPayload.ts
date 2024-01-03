@@ -10,3 +10,12 @@ export interface CreateAccountPayload{
         "CountryCode": string;
     }
 }
+
+export interface CreateRiderPayload{
+    "fullName": string;
+    "phoneNumber": string;
+    "email": string;
+    "frequentLocation": string;
+    "bikeRegistrationNumber": string;
+    "licenseNumber": string;
+}

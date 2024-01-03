@@ -2,24 +2,28 @@
 
 import CustomSkeleton from '@/components/CustomSkeleton';
 import { useRiders } from '@/hooks/useRiders';
-import { useSession } from '@/hooks/useSession';
 import { useAuth } from '@/providers/AuthProvider';
 import { PaginatedQuery } from '@/types/requests/PaginatedQuery';
 import { PackageAdminListData } from '@/types/responses/PackageAdminListData';
 import { ToastNotify } from '@/utils/helperFunctions/toastNotify';
+import { getSessionToken } from '@/utils/sessionUtils';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { FaPlus } from "react-icons/fa6";
+import backendClient from '@/services/ImperiumApiClient';
+import { AssignPackagaePayload } from '@/types/requests/PackagePayload';
+import FormButton from '@/components/FormElements/FormButton';
 
 export interface AssignDeliveryProps{
     packageListData?: PackageAdminListData[];
     onAddDelivery?: ()=> void;
+    onAssign?: ()=> void;
     onGoBack?: ()=> void;
 }
 
 const AssignDelivery: React.FC<AssignDeliveryProps> = ({
-    packageListData, onAddDelivery, onGoBack
+    packageListData, onAddDelivery, onGoBack, onAssign
 })=>{
 
     // Hooks
@@ -34,6 +38,8 @@ const AssignDelivery: React.FC<AssignDeliveryProps> = ({
             pageSize: 10,
         }
     });
+    const [loading, setLoading] = React.useState<boolean>(false);
+    const [selectedId, setSelectedId] = React.useState<string>('');
 
     // Fetched data
     const { data, isLoading, error } = useRiders(query);
@@ -53,6 +59,41 @@ const AssignDelivery: React.FC<AssignDeliveryProps> = ({
             }
         }
     },[error])
+
+    // Handlers
+    const handleAssign = async (riderId?: string)=>{
+        backendClient.setToken(getSessionToken() || '');
+        setLoading(true);
+
+        // Payload
+        let payload: AssignPackagaePayload = {
+            riderId: riderId || '',
+            packageIds: packageListData?.map((item)=> item.id) || []
+        }
+        
+        try {
+            let response = await backendClient.assignPackage(payload)
+
+            setLoading(false)
+            if (response.responseObject) {
+                onAssign && onAssign()
+                // return response.responseObject
+            }
+            
+        } catch (err: any) {
+            setLoading(false)
+            if (err?.response?.status === 401 && !session) {
+                router.replace('/sign-in')
+            }
+            else{
+                ToastNotify({
+                    type: 'error',
+                    message: err?.response?.data?.message || err?.response?.data?.title,
+                    position: 'top-right',
+                });
+            }
+        }
+    }
 
     return(
         <div className="h-full flex flex-col">
@@ -144,11 +185,16 @@ const AssignDelivery: React.FC<AssignDeliveryProps> = ({
 
                             <div className='flex-1'></div>
 
-                            <button 
+                            <FormButton 
+                                loading={!!(selectedId && loading)}
+                                onClick={()=>{
+                                    setSelectedId(item.id);
+                                    handleAssign(item.id)
+                                }}
                                 className='min-w-[95px] inline-flex items-center justify-center px-4 h-10 text-sm text-center text-white bg-black rounded-lg font-normal'
                             >
                                 Assign
-                            </button>
+                            </FormButton>
                         </div>
                     ))
                 }

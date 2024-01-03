@@ -1,3 +1,5 @@
+import { PackageStatus } from "@/types/responses/PackageAdminListData";
+
 export type WebsiteMenuLinks = {
   title: string;
   id: string | number;
@@ -714,34 +716,34 @@ export const CUSTOMERS_TABLE_HEADERS = [
   },
 ]
 
-export const packageDetailsTitleAndDescription = (type: string) => {
-  switch (type) {
-    case "availableforpickup":
+export const packageDetailsTitleAndDescription = (status: PackageStatus) => {
+  switch (status) {
+    case PackageStatus.AVAILABLE_FOR_PICKUP:
       return {
         title: "Available for Pick Up",
         sub: "Your package is on it’s way to our warehouse"
       };
-    case "delivered":
+    case PackageStatus.DELIVERED:
       return {
         title: "Delivery completed",
         sub: "Package was successfully delivered"
       };
-    case "indelivery":
+    case PackageStatus.IN_DELIVERY:
       return {
         title: "Package in delivery",
         sub: "We are heading towards customer location"
       };
-    case "warehouse":
+    case PackageStatus.WAREHOUSE:
       return {
         title: "Package at our warehouse",
         sub: "Package arrived our facility"
       };
-    case "pickedup":
+    case PackageStatus.PICKUP:
       return {
         title: "Package Picked Up",
         sub: "Your package is on it’s way to our warehouse"
       };
-    case "undelivered":
+    case PackageStatus.UNDELIVERED:
       return {
         title: "We wouldn’t complete delivery",
         sub: "Customer not available to receive package"

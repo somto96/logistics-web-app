@@ -1,21 +1,15 @@
 "use client"
 
 import React from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
-import { BsArrowLeftCircle } from 'react-icons/bs';
 import { FaCircle, FaRegCircle } from 'react-icons/fa6';
-import { GoArrowRight } from 'react-icons/go';
 import Image from 'next/image';
-import { PackageAdminListData, PackageStatus } from '@/types/responses/PackageAdminListData';
+import { PackageAdminListData } from '@/types/responses/PackageAdminListData';
 import moment from 'moment';
-import { packageStatusList, statusOptions } from '@/constants/dropdown.config';
+import { statusOptions } from '@/constants/dropdown.config';
 import FormSelect from '@/components/FormElements/FormSelect';
 import backendClient from '@/services/ImperiumApiClient';
 import { getSessionToken } from '@/utils/sessionUtils';
 import { UpdatePackagePayload } from '@/types/requests/PackagePayload';
-import { ToastNotify } from '@/utils/helperFunctions/toastNotify';
-import { useRouter } from 'next/navigation';
-import { useSession } from '@/hooks/useSession';
 import FormButton from '@/components/FormElements/FormButton';
 
 backendClient.setToken(getSessionToken() || '');

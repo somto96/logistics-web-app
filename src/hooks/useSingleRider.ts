@@ -19,7 +19,7 @@ function getSessionToken() {
 }
 
 
-export function useRiders(query: PaginatedQuery){
+export function useSingleRider(id?: string){
 
     const client = axios.create({
         baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -30,11 +30,11 @@ export function useRiders(query: PaginatedQuery){
     
 
     // Fetcher
-    const fetcher = (url: string) => client.post(url, query).
-    then((res: AxiosResponse<ApiResponse<PaginatedResponse<RiderData>>>) => res.data);
+    const fetcher = (url: string) => client.get(url).
+    then((res: AxiosResponse<ApiResponse<RiderData>>) => res.data);
 
     // Fetching hook
-    const apiUrl = `/Rider/list`
+    const apiUrl = `/Rider/id/${id}`
     const { data, error, mutate } = useSWR(apiUrl, fetcher, { shouldRetryOnError: false });
 
     console.log(data);
