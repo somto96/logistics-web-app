@@ -6,26 +6,29 @@ import { PackageAdminListData, PackageStatus } from "@/types/responses/PackageAd
 import CustomSkeleton from "@/components/CustomSkeleton";
 import { ToastNotify } from "@/utils/helperFunctions/toastNotify";
 import { useRouter } from "next/navigation";
-import DashboardFilter, { DashboardFilterState } from "@/components/Filters/DashboardFilter";
 import backendClient from '@/services/ImperiumApiClient';
 import { getSessionToken } from "@/utils/sessionUtils";
 import TablePagination from "@/components/TablePagination";
 import { PaginatedResponse } from "@/types/responses/PaginatedResponse";
-import { UpdatePackagePayload } from "@/types/requests/PackagePayload";
-import AssignDelivery from "../back-office/views/AssignDelivery";
-import PackageDetails from "../back-office/views/PackageDetails";
-import TrackingInfo from "../back-office/views/TrackingInfo";
-import moment from "moment";
-import { GoArrowRight } from "react-icons/go";
-import { useCompanyAnalytics } from "@/hooks/useCompanyAnalytics";
 import { useAuth } from "@/providers/AuthProvider";
+import { CompanyData } from "@/types/responses/CompanyData";
+import UserManagementFilter, { UserManagementFilterState } from "@/components/Filters/UserManagementFilter";
+import { AiOutlineClose } from 'react-icons/ai';
+import Image from 'next/image';
+import moment from "moment";
+import { MdOutlineClose } from "react-icons/md";
+import UpdateCompanyForm from "@/forms/UpdateCompanyForm";
 
 
 backendClient.setToken(getSessionToken() || '');
 
 type DashboardViewType = 'main'|'assign'|'package'|'tracking'
 
-export default function BackOfficeHome() {
+export default function CustomersPage() {
+
+    // Refs
+    const tableRowRef = React.createRef<HTMLTableRowElement>()
+    const modalRef = React.createRef<HTMLDivElement>()
 
     // Hooks
     const router = useRouter()
@@ -35,13 +38,6 @@ export default function BackOfficeHome() {
     type RowHash = {
         [key: string]: any;
     }   
-
-    // Fetched Data
-    const { 
-        data: analytics,
-        isLoading
-    } = useCompanyAnalytics(session?.id)
-    
 
     // State
     const [views, setViews] = React.useState<DashboardViewType>('main')
@@ -54,28 +50,23 @@ export default function BackOfficeHome() {
             pageSize: 20,
         }
     });
-    const [data, setData] = React.useState<PaginatedResponse<PackageAdminListData>>()
-    const [selectedPackage, setSelectedPackage] = React.useState<PackageAdminListData>()
+    const [data, setData] = React.useState<PaginatedResponse<CompanyData>>()
+    const [selectedCompany, setSelectedCompany] = React.useState<CompanyData>()
 
     // Fetched data
     // const { data, isLoading, error } = usePackagaAdminList(query);
-    const fetchCustomerPackageList = async(params: PaginatedQuery)=>{
+    const fetchCompanyList = async(params: PaginatedQuery)=>{
         backendClient.setToken(getSessionToken() || '');
-        setLoading(true)
         
         try {
-            let response = await backendClient.getCustomerPackageList(params)
+            let response = await backendClient.getCompanyList(params, setLoading)
 
-            backendClient.setLoading('admin', false);
-            setLoading(false)
             if (response.responseObject) {
                 setData(response.responseObject);
                 return response.responseObject
             }
             
         } catch (err: any) {
-            backendClient.setLoading('admin', false);
-            setLoading(false)
             if (err?.response?.status === 401 && !session) {
                 router.replace('/sign-in')
             }
@@ -105,16 +96,16 @@ export default function BackOfficeHome() {
     //     }
     // },[error])
     React.useEffect(()=>{
-        fetchCustomerPackageList(query)
+        fetchCompanyList(query)
     },[query])
 
     // Columns
     const columns = [
-        "TRACKING ID", 
-        "PICK UP ADDRESS",
-        "", 
-        "DELIVERY ADDRESS", 
-        "CUSTOMER NAME",
+        "COMPANY NAME", 
+        "COMPANY PHONE NO",
+        // "", 
+        "COMPANY EMAIL", 
+        // "CUSTOMER NAME",
         "STATUS", 
         // "ACTION",
     ]
@@ -138,7 +129,7 @@ export default function BackOfficeHome() {
             }
         }));
     }
-    const handleFilterApply = (state: DashboardFilterState)=>{
+    const handleFilterApply = (state: UserManagementFilterState)=>{
         console.log({
             ...query,
             ...state
@@ -183,28 +174,28 @@ export default function BackOfficeHome() {
             setRowHash(cloneHash);
         }
         else{
-            cloneHash[code] = values.find((item)=> item.trackingNumber === code);
+            // cloneHash[code] = values.find((item)=> item.trackingNumber === code);
             setRowHash(cloneHash);
         }
     }
     const handleSelectAll = ()=>{
-        let cloneHash = {...rowHash}
-        let values = data?.items || []
+        // let cloneHash = {...rowHash}
+        // let values = data?.items || []
 
-        if (seletectedAll) {
-            setRowHash({})
-        }
-        else{
-            for (let i = 0; i < values.length; i++) {
-                let item = values[i];
+        // if (seletectedAll) {
+        //     setRowHash({})
+        // }
+        // else{
+        //     for (let i = 0; i < values.length; i++) {
+        //         let item = values[i];
 
-                if (!handleAssignBtnLabelText(item).disabled) {
-                    cloneHash[item.trackingNumber] = item;
-                }
-            } 
-            setRowHash(cloneHash);
-        }
-        setSelectedAll(!seletectedAll)
+        //         if (!handleAssignBtnLabelText(item.status).disabled) {
+        //             cloneHash[item.trackingNumber] = item;
+        //         }
+        //     } 
+        //     setRowHash(cloneHash);
+        // }
+        // setSelectedAll(!seletectedAll)
     }
 
     const handleAssign = ()=>{
@@ -212,50 +203,11 @@ export default function BackOfficeHome() {
     }
     const handleGoBack = ()=> setViews('main');
 
-    const handleUpdateTrackingStatus = async (payload: UpdatePackagePayload)=>{
-        backendClient.setToken(getSessionToken() || '');
-        setLoading(true)
-        
-        try {
-            let response = await backendClient.updatePackageStatus(payload)
-
-            setLoading(false)
-            if (response.responseObject) {
-                ToastNotify({
-                    type: 'success',
-                    message: response.responseObject,
-                    position: 'top-right',
-                });
-                fetchCustomerPackageList(query)
-                .then((value)=>{
-                    let updatedPackage = value?.items.find((p)=> p.id === selectedPackage?.id)
-                    if (updatedPackage) {
-                        setSelectedPackage(updatedPackage);
-                        console.log("UPDATE", updatedPackage)
-                    }
-                })
-            }
-            
-        } catch (err: any) {
-            setLoading(false)
-            if (err?.response?.status === 401 && !session) {
-                router.replace('/sign-in')
-            }
-            else{
-                ToastNotify({
-                    type: 'error',
-                    message: err?.response?.data?.message || err?.response?.data?.title,
-                    position: 'top-right',
-                });
-            }
-        }
-    }
-
     const handleUpdateTracking = (packageData?: PackageAdminListData)=>{
-        if (packageData) {
-            setSelectedPackage(packageData)
-            setViews('tracking')
-        }
+        // if (packageData) {
+        //     setSelectedPackage(packageData)
+        //     setViews('tracking')
+        // }
     }
 
     const handleAssignPackage = (packageData?: PackageAdminListData)=>{
@@ -269,41 +221,33 @@ export default function BackOfficeHome() {
         }
     }
 
-    // Helpers
-    const getStatusColorClass = (status: PackageStatus) =>{
-        switch (status) {
-            case PackageStatus.IN_DELIVERY:
-                return {
-                    text: "text-[#2d9bdb]",
-                    border: "border-[#2d9bdb]"
-                }
+    const handleOverlayClose = ()=>{
+        tableRowRef.current?.click();
+        setSelectedCompany(undefined);
+    }
+    const toggleUpdateCompanyModal = ()=>{
+        document.body.classList.toggle('overflow-hidden')
+        modalRef.current?.classList.toggle('hidden');
+    }
+    const handleEditProfile = (e: React.MouseEvent)=>{
+        let clone: any = selectedCompany ? { ...selectedCompany } : undefined
+        e.stopPropagation()
+        tableRowRef.current?.click();
+        setSelectedCompany(clone)
+        toggleUpdateCompanyModal();
+    }
 
-            case PackageStatus.UNDELIVERED:
-                return {
-                    text: "text-[#EB5757]",
-                    border: "border-[#EB5757]"
-                }
-            case PackageStatus.WAREHOUSE:
-                return {
-                    text: "text-[#F2994A]",
-                    border: "border-[#F2994A]"
-                }
-            case PackageStatus.DELIVERED:
-                return {
-                    text: "text-[#219653]",
-                    border: "border-[#219653]"
-                }
-            case PackageStatus.SLA_BREACH:
-                return {
-                    text: "text-[#F2C94C]",
-                    border: "border-[#F2C94C]"
-                }
-            default:
-                return {
-                    text: "text-black",
-                    border: "border-black"
-                };
+    
+
+    // Helpers
+    const getStatusClass = (isVerified: boolean) =>{
+
+        if (isVerified) {
+            return "text-green-500 border-green-500 bg-green-100"
         }
+
+        return "text-red-500 border-red-500 bg-red-100"
+        
     }
     const renderRows = ()=>{
         let rows = [];
@@ -312,12 +256,14 @@ export default function BackOfficeHome() {
             
             for (let i = 0; i < data?.items.length; i++) {
 
-                let packageData = data.items[i];
+                let companyData = data.items[i];
 
                 let element = (
-                    <tr className="border-b text-sm h-fit"
+                    <tr className="border-b text-sm h-fit hover:bg-gray-200 cursor-pointer"
                         key={`${i}rtpkg`}
-                        // onClick={()=> handleRowClick(user.id)}
+                        data-hs-overlay="#hs-overlay-customer"
+                        ref={tableRowRef}
+                        onClick={()=> setSelectedCompany(companyData)}
                     >
                         <td scope="row" className="px-3.5 py-5 whitespace-nowrap">
                             <div className="flex items-center gap-3">
@@ -327,43 +273,30 @@ export default function BackOfficeHome() {
                                     disabled={handleAssignBtnLabelText(packageData.status).disabled}
                                 /> */}
                                 <p className="font-bold">
-                                    { packageData.trackingNumber }
+                                    { companyData.name }
                                 </p>
                             </div>
                         </td>
                         <td scope="row" className="px-3.5 py-5">
-                                <div className="space-y-2 text-center">
-                                    <p className="font-bold">
-                                        { `${packageData.pickUpCity}, ${packageData.pickUpState}` }
-                                    </p>
-                                    <p className="text-xs text-gray-400 font-medium">
-                                        { moment(packageData.pickupDate).format('ddd DD/MM/YYYY') }
-                                    </p>
-                                </div>
-                            </td>
-                            <td scope="col" className="px-3.5 py-5">
-                                <GoArrowRight size={20} />
-                            </td>
-                            <td scope="row" className="px-3.5 py-5">
-                                <div className="space-y-2 text-center">
-                                    <p className="font-bold">
-                                        { `${packageData.deliveryCity}, ${packageData.deliveryState}` }
-                                    </p>
-                                    <p className="text-xs text-gray-400 font-medium">
-                                        { moment(packageData.expectedDeliveryDate).format('ddd DD/MM/YYYY') }
-                                    </p>
-                                </div>
-                            </td>
-                        
-                        <td scope="col" className="px-3.5 py-5 text-left">
-                            <p className="font-bold">
-                                { `${packageData.customerFirstName} ${packageData.customerLastName}` }
-                            </p>
+                            <div className="space-y-2">
+                                <p className="font-bold">
+                                    { companyData.phoneNumber }
+                                </p>
+                            </div>
                         </td>
+                
+                        <td scope="row" className="px-3.5 py-5">
+                        <div className="space-y-2">
+                                <p className="font-bold">
+                                    { companyData.emailAddress.address }
+                                </p>
+                            </div>
+                        </td>
+                        
                         <td scope="col" className="px-3.5 py-5 text-center">
-                            <div className={`rounded-lg border p-2 ${getStatusColorClass(packageData.status).border}`}>
-                                <p className={`text-sm text-center font-normal whitespace-nowrap ${getStatusColorClass(packageData.status).text}`}>
-                                    { packageData.status }
+                            <div className={`rounded-md border p-2 ${getStatusClass(companyData.emailAddress.isVerified)}`}>
+                                <p className={`text-sm text-center font-normal whitespace-nowrap`}>
+                                    { companyData.emailAddress.isVerified ? "Active" : "Inactive" }
                                 </p>
                             </div>
                         </td>
@@ -423,9 +356,9 @@ export default function BackOfficeHome() {
         <div className="h-full flex flex-col">
             
             {/** Header */}
-            <div className="p-5 border-gray-300 flex items-center h-[68px] border-b">
+            <div className="p-5 border-gray-300 flex items-center h-[68px]">
                 <p className="font-bold text-lg ">
-                    Dashboard
+                    User Management
                 </p>
                 <div className="flex-1"></div>
                 <div>
@@ -441,64 +374,17 @@ export default function BackOfficeHome() {
                 </div>
             </div>
 
-            <div className="grid lg:grid-cols-4 grid-cols-2 p-5 gap-4">
-                <CustomSkeleton isLoading={isLoading}>
-                    <div className="rounded-xl bg-[#F9F9F9] p-3 flex flex-col h-[150px]">
-                        <p className="text-[#4F4F4F]"> 
-                            Total package available for pick up
-                        </p>
-                        <div className="flex-1"></div>
-                        <p className="font-bold text-[22px]">
-                            { analytics?.packageAvailableForPickUp || 0 }
-                        </p>
-                    </div>
-                </CustomSkeleton>
-                <CustomSkeleton isLoading={isLoading}>
-                    <div className="rounded-xl bg-[#F9F9F9] p-3 flex flex-col h-[150px]">
-                        <p className="text-[#4F4F4F]"> 
-                            Total package at warehouse
-                        </p>
-                        <div className="flex-1"></div>
-                        <p className="font-bold text-[22px]">
-                            { analytics?.packageAtWareHouse || 0 }
-                        </p>
-                    </div>
-                </CustomSkeleton>
-                <CustomSkeleton isLoading={isLoading}>
-                    <div className="rounded-xl bg-[#F9F9F9] p-3 flex flex-col h-[150px]">
-                        <p className="text-[#4F4F4F]"> 
-                            Total package Delivered
-                        </p>
-                        <div className="flex-1"></div>
-                        <p className="font-bold text-[22px]">
-                            { analytics?.packageDelivered || 0 }
-                        </p>
-                    </div>
-                </CustomSkeleton>
-                <CustomSkeleton isLoading={isLoading}>
-                    <div className="rounded-xl bg-[#F9F9F9] p-3 flex flex-col h-[150px]">
-                        <p className="text-[#4F4F4F]"> 
-                            Total package Undelivered
-                        </p>
-                        <div className="flex-1"></div>
-                        <p className="font-bold text-[22px]">
-                            { analytics?.packageUnDelivered || 0 }
-                        </p>
-                    </div>
-                </CustomSkeleton>
-            </div>
-
             {/** Filter Area */}
             <div className="border-y">
-                <DashboardFilter
-                    allDeliveries={data?.items.length}
+                <UserManagementFilter
+                    allCustomers={data?.totalItemCount}
                     onApply={handleFilterApply}
                 />
             </div>
 
             <div className="bg-white overflow-x-scroll h-[40vh] overflow-y-scroll grow">
                 
-                <table className={`relative w-full ${backendClient.adminListLoading ? 'h-full' : ''}`}>
+                <table className={`relative w-full ${loading ? 'h-full' : ''}`}>
                     <thead className="text-gray-500 uppercase bg-white text-left border-b sticky top-0 text-sm">
                         <tr>
                             {
@@ -557,14 +443,14 @@ export default function BackOfficeHome() {
                     </thead>
                     <tbody>
                         {
-                            backendClient.adminListLoading &&
+                            loading &&
                             <tr>
                                 <td colSpan={columns.length}>
                                     <CustomSkeleton isLoading></CustomSkeleton> 
                                 </td>  
                             </tr>
                         }
-                        { !backendClient.adminListLoading && renderRows() }
+                        { !loading && renderRows() }
                     </tbody>
                 </table>
             </div>
@@ -580,36 +466,135 @@ export default function BackOfficeHome() {
         </div>
     )
 
+    const overlayContent = (
+        <div>
+            <div className="flex justify-end p-2">
+                <button
+                    onClick={handleOverlayClose}
+                    className="hover:bg-gray-100 p-2 rounded-md"
+                >
+                    <AiOutlineClose size={20}/>
+                </button>
+            </div>
+            <div className="bg-site-gray-F2 py-3 px-5">
+                <p className="text-xs text-site-gray-text">
+                    Joined: {" "}
+                    <span className="text-black font-semibold">
+                        { moment(selectedCompany?.dateCreated).format('DD/MM/yyyy') }
+                    </span>
+                </p>
+            </div>
+            <div className="flex justify-center py-5">
+                <Image 
+                    className="rounded-full" 
+                    src="/images/svgs/user-avatar.svg" 
+                    alt={"hello"}
+                    width={60}
+                    height={60}
+                />
+            </div>
+            <div className="p-4 space-y-4 border-b border-site-gray-82">
+                <p className="text-black text-sm">
+                    Customer details
+                </p>
+                <div className="flex">
+                    <div className="flex-1">
+                        <p className="text-site-gray-border text-xs">
+                            Full Name
+                        </p>
+                        <p className="text-black text-sm">
+                            { selectedCompany?.owner.fullName }
+                        </p>
+                    </div>
+                    <div className="flex-1">
+                        <p className="text-site-gray-border text-xs">
+                            Company Phone No
+                        </p>
+                        <p className="text-black text-sm">
+                            { selectedCompany?.phoneNumber }
+                        </p>
+                    </div>
+                </div>
+                <div className="flex">
+                    <div className="flex-1">
+                        <p className="text-site-gray-border text-xs">
+                            Company Email
+                        </p>
+                        <p className="text-black text-sm">
+                            { selectedCompany?.emailAddress.address }
+                        </p>
+                    </div>
+                </div>
+                <div className="flex">
+                    <div className="flex-1">
+                        <p className="text-site-gray-border text-xs">
+                            Company Address
+                        </p>
+                        <p className="text-black text-sm">
+                            { selectedCompany?.address }
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex items-center justify-center p-4 gap-4">
+                <button
+                    // onClick={handleUpdateTracking}
+                    className={`min-w-[136px] inline-flex items-center justify-center px-2 h-8 text-sm text-center rounded-full text-black bg-white border border-black`}
+                >
+                    Deactivate User
+                </button>
+                <button
+                    onClick={handleEditProfile}
+                    className={`min-w-[136px] inline-flex items-center justify-center px-2 h-8 text-sm text-center rounded-full text-white bg-black`}
+                >
+                    Edit Details
+                </button>
+            </div>
+        </div>
+    )
+
     return(
         <>
+            <div 
+                ref={modalRef}
+                // id="imperium-modal" 
+                className="transition hidden duration fixed inset-0 z-50 bg-gray-900 bg-opacity-50 dark:bg-opacity-80 hs-overlay-backdrop"
+            >
+                
+                <div className='h-full w-full items-center justify-center flex'>
+                    <div className='sm:w-[90%] md:w-[950px] w-[90%] bg-white rounded-lg h-[90%] flex flex-col text-black relative'>
+                    <div 
+                        className='absolute right-3 top-3 cursor-pointer z-10'
+                        onClick={(e)=>{
+                            e.stopPropagation();
+                            toggleUpdateCompanyModal()
+                        }}
+                    >
+                        <MdOutlineClose size={20} />
+                    </div>
+
+                        <UpdateCompanyForm
+                            companyData={selectedCompany}
+                            onSuccess={()=>{
+                                toggleUpdateCompanyModal();
+                                setSelectedCompany(undefined)
+                                fetchCompanyList(query)
+                            }}
+                        />
+
+                    </div>
+                </div>
+                
+            </div>
+            <div 
+                id="hs-overlay-customer" 
+                className="hs-overlay hs-overlay-open:translate-x-0 translate-x-full fixed top-0 end-0 transition-all duration-300 transform h-full max-w-xs w-full z-[60] bg-white hidden" 
+                tabIndex={-1}
+            >
+                { overlayContent }
+            </div>
             {  views === 'main' && mainDisplay }
-            { 
-                views === 'assign' && 
-                <AssignDelivery
-                    packageListData={Object.values(rowHash)}
-                    onGoBack={handleGoBack}
-                    onAddDelivery={handleGoBack}
-                />
-            }
-            { 
-                views === 'package' && 
-                <PackageDetails
-                    packageData={selectedPackage}
-                    onGoBack={handleGoBack}
-                    onAddDelivery={handleGoBack}
-                    onUpdateTracking={handleUpdateTracking}
-                    onAssign={handleAssignPackage}
-                />
-            }
-            { 
-                views === 'tracking' && 
-                <TrackingInfo
-                    packageData={selectedPackage}
-                    onGoBack={handleGoBack}
-                    onUpdateTrackingStatus={handleUpdateTrackingStatus}
-                    isLoading={loading}
-                />
-            }
         </>
     )
 }
