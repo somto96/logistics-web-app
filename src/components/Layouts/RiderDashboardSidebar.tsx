@@ -52,7 +52,7 @@ const RiderDashboardSidebar: React.FC<any> = ()=>{
     }
 
     const toggleHamburger = ()=>{
-        document.getElementById('dsh-burger')?.click()
+        document.getElementById('rider-dsh-burger')?.click()
     }
 
     // Menu Items
@@ -114,14 +114,14 @@ const RiderDashboardSidebar: React.FC<any> = ()=>{
                 <li>
                     <Link 
                         className={`flex items-center gap-x-3.5 py-2 px-2.5 text-black font-medium rounded-lg hover:bg-gray-100 hover:text-black`} 
-                        href={session?.role.toLocaleLowerCase() === 'admin' ? '/dashboard/backoffice' : '/dashboard/user'}
+                        href={'/riders/deliveryHistory'}
                         onClick={toggleHamburger}
                     >
                         <FiHome size={20} />
                         Home
                     </Link>
                 </li>
-                <li>
+                {/* <li>
                     <Link 
                         className={`flex items-center gap-x-3.5 py-2 px-2.5 text-black font-medium rounded-lg hover:bg-gray-100 hover:text-black`} 
                         href={session?.role.toLocaleLowerCase() === 'admin' ? '/dashboard/backoffice' : '/dashboard/user'}
@@ -130,12 +130,12 @@ const RiderDashboardSidebar: React.FC<any> = ()=>{
                         { deliveryIcon }
                         Delivery History
                     </Link>
-                </li>
+                </li> */}
                 <li>
                     <Link 
                         onClick={toggleHamburger}
                         className={`flex items-center gap-x-3.5 py-2 px-2.5 text-black font-medium rounded-lg hover:bg-gray-100 hover:text-black`} 
-                        href={session?.role.toLocaleLowerCase() === 'admin' ? '/dashboard/backoffice/settings' : '/dashboard/user/settings'}
+                        href={'/riders/settings'}
                     >
                         <FiSettings size={20} />
                         Settings
