@@ -15,6 +15,7 @@ import { useAuth } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
 import { ToastNotify } from "@/utils/helperFunctions/toastNotify";
 import RiderPackageCard from "@/components/Riders/RiderPackageCard";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 backendClient.setToken(getSessionToken() || '');
 
@@ -92,6 +93,18 @@ export default function DeliveryHistory() {
                         <MdArrowBack size={28} />
                     </button>
                 </div> */}
+                <div className='absolute left-0 top-0 p-5 h-full flex items-center'>
+                    <button 
+                        id='rider-dsh-burger'
+                        // ref={hamburgerRef}
+                        type="button" 
+                        className="font-semibold text-white" 
+                        data-hs-overlay="#hs-overlay-dashboard-rider"
+                        // onClick={()=> alert('CLICKED')}
+                    >
+                        <RxHamburgerMenu size={30} />
+                    </button>
+                </div>
             </div>
 
             {/** Statistics */}

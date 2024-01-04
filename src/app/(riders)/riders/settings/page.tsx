@@ -66,7 +66,9 @@ export default function RiderSettingsPage() {
 
             {/** Action Section */}
             <section className='mt-3'>
-                <div className='flex items-center p-5 border-b border-site-gray-border cursor-pointer hover:opacity-60'>
+                <div className='flex items-center p-5 border-b border-site-gray-border cursor-pointer hover:opacity-60'
+                    onClick={()=> router.push('/riders/settings/changePassword')}
+                >
                     <div className='flex items-center gap-3'>
                         <FiLock size={20} />
                         <p className='text-black'>

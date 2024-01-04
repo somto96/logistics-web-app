@@ -8,7 +8,7 @@ export const ProfileUpdateFormSchema = yup.object({
     city: yup.string().required(),
     state: yup.string().required(),
     email: yup.string().required().email(),
-    phoneNumber: yup.string().required().min(8),
+    phoneNumber: yup.string().required().min(8).max(11),
 });
 
 export type ProfileUpdateFormState = yup.InferType<typeof ProfileUpdateFormSchema>;

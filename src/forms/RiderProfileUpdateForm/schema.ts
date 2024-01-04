@@ -6,7 +6,7 @@ export const RiderProfileUpdateFormSchema = yup.object({
     frequentLocation: yup.string().required(),
     bikeRegistrationNumber: yup.string().required(),
     licenseNumber: yup.string().required(),
-    phoneNumber: yup.string().required().min(8)
+    phoneNumber: yup.string().required().min(8).max(11)
 });
 
 export type RiderProfileUpdateFormState = yup.InferType<typeof RiderProfileUpdateFormSchema>;
