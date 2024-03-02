@@ -12,7 +12,7 @@ import { SignInPayload } from "@/types/requests/SignInPayload";
 import { ToastNotify } from "@/utils/helperFunctions/toastNotify";
 import backendClient from '@/services/ImperiumApiClient';
 import { setCookie } from "cookies-next";
-import { AUTH_KEY } from "@/constants/cookie.config";
+import { AUTH_KEY, PERSIST_KEY } from "@/constants/cookie.config";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/AuthProvider";
 
@@ -31,6 +31,7 @@ const SignInForm: React.FC<SignInFormProps> = ({
     // State
     const [visible, setVisible] = React.useState<boolean>(false);
     const [loading, setLoading] = React.useState<boolean>(false);
+    const [rememberMe, setRememberMe] = React.useState<boolean>(false)
 
     // Initial values
     let initialValues: SignInFormState = {
@@ -70,7 +71,8 @@ const SignInForm: React.FC<SignInFormProps> = ({
                     
                     
                     setCookie(AUTH_KEY, JSON.stringify(response.responseObject));
-                    setUser(response.responseObject)
+                    setCookie(PERSIST_KEY, rememberMe),
+                    setUser(response.responseObject, rememberMe)
 
                     setLoading(false)
 
@@ -149,6 +151,9 @@ const SignInForm: React.FC<SignInFormProps> = ({
                             type="checkbox" 
                             className="shrink-0 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" 
                             id="hs-default-checkbox"
+                            onChange={(event)=>{
+                                setRememberMe(event.target.checked)
+                            }}
                         />
                         <label 
                             htmlFor="hs-default-checkbox" 

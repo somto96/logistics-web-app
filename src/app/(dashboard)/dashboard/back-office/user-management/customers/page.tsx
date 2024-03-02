@@ -32,7 +32,6 @@ export default function CustomersPage() {
 
     // Hooks
     const router = useRouter()
-    // const session = useSession();
     const { session } = useAuth()
 
     type RowHash = {

@@ -16,7 +16,6 @@ const DashboardPageHeader: React.FC<any> = ()=>{
     const hamburgerRef = React.createRef<HTMLButtonElement>();
     const modalRef = React.createRef<HTMLDivElement>()
 
-    // const session = useSession();
     const { session, signOut } = useAuth()
     const pathname = usePathname()
     const router = useRouter()

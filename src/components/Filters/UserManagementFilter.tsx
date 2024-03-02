@@ -199,18 +199,25 @@ const UserManagementFilter: React.FC<UserManagementFilterProps> = ({
 
                 {/** Filters */}
                 <div className={`gap-8 flex items-center flex-1 flex-wrap`}>
-                    <FormInput
-                        className="border-site-gray-border border py-2 rounded-full text-sm"
-                        containerClass='w-full sm:w-auto'
-                        labelClass="hidden"
-                        placeholder={ !riders ? "Search customer name" : "Search rider name" }
-                        startAdornment={
-                            <CiSearch />
-                        }
-                        onChange={handleIdChange}
-                        value={filterState.textFilter?.keyword || ''}
+                    <form
+                        onSubmit={(e)=>{
+                            e.preventDefault()
+                            handleApply()
+                        }}
+                    >
+                        <FormInput
+                            className="border-site-gray-border border py-2 rounded-full text-sm"
+                            containerClass='w-full sm:w-auto'
+                            labelClass="hidden"
+                            placeholder={ !riders ? "Search customer name" : "Search rider name" }
+                            startAdornment={
+                                <CiSearch />
+                            }
+                            onChange={handleIdChange}
+                            value={filterState.textFilter?.keyword || ''}
 
-                    />
+                        />
+                    </form>
                     {/* <div className="hs-accordion-group" data-hs-accordion-always-open> */}
                     
                     {/* <button

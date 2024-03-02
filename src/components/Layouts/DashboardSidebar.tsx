@@ -20,7 +20,6 @@ const DashboardSidebar: React.FC<any> = ()=>{
 
     // Hook
     const pathname = usePathname();
-    // const session = useSession()
     const { session } = useAuth()
 
     // Classes

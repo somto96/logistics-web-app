@@ -6,7 +6,6 @@ import React from "react";
 import { MdOutlineDashboard } from "react-icons/md";
 import { FiHome, FiSettings } from "react-icons/fi";
 import { LuUsers } from "react-icons/lu";
-// import { useSession } from "@/hooks/useSession";
 import { RxExit } from "react-icons/rx";
 import { useAuth } from "@/providers/AuthProvider";
 import Image from 'next/image';
@@ -23,8 +22,7 @@ const RiderDashboardSidebar: React.FC<any> = ()=>{
 
     // Hook
     const pathname = usePathname();
-    // const session = useSession()
-    const { session, signOut, user } = useAuth()
+    const { signOut, user } = useAuth()
     const router = useRouter()
 
     // Classes

@@ -28,7 +28,6 @@ const AssignDelivery: React.FC<AssignDeliveryProps> = ({
 
     // Hooks
     const router = useRouter()
-    // const session = useSession();
     const { session } = useAuth()
 
     // State

@@ -269,18 +269,25 @@ const DashboardFilter: React.FC<DashboardFilterProps> = ({
 
                 {/** Filters */}
                 <div className={`gap-8 flex items-center flex-1 flex-wrap`}>
-                    <FormInput
-                        className="border-site-gray-border border py-2 rounded-full text-sm"
-                        containerClass='w-full sm:w-auto'
-                        labelClass="hidden"
-                        placeholder="Tracking ID"
-                        startAdornment={
-                            <CiSearch />
-                        }
-                        onChange={handleIdChange}
-                        value={filterState.textFilter?.keyword || ''}
+                    <form 
+                        onSubmit={(e)=>{
+                            e.preventDefault()
+                            handleApply()
+                        }}
+                    >
+                        <FormInput
+                            className="border-site-gray-border border py-2 rounded-full text-sm"
+                            containerClass='w-full sm:w-auto'
+                            labelClass="hidden"
+                            placeholder="Tracking ID"
+                            startAdornment={
+                                <CiSearch />
+                            }
+                            onChange={handleIdChange}
+                            value={filterState.textFilter?.keyword || ''}
 
-                    />
+                        />
+                    </form>
                     <button
                         onClick={handleTodayClick}
                         className={`min-w-10 inline-flex items-center px-4 h-10 text-sm text-center rounded-full ${todayClicked ? activeBtnClass : inActiveBtnClass}`}

@@ -39,7 +39,6 @@ export default function BackOfficeHome() {
 
     // Hooks
     const router = useRouter()
-    // const session = useSession();
     const { session, user } = useAuth()
 
     type RowHash = {
@@ -648,7 +647,13 @@ export default function BackOfficeHome() {
                    { selectedPackage?.trackingNumber }
                 </p>
                 <div className="flex-1"></div>
-                <LuCopy className='text-site-gray-text cursor-pointer' size={18} />
+                <LuCopy 
+                    className='text-site-gray-text cursor-pointer' 
+                    size={18} 
+                    onClick={()=>{
+                        navigator.clipboard.writeText(selectedPackage?.trackingNumber || "")
+                    }}
+                />
             </div>
             <div className="p-5 border-b border-site-gray-82">
                 <p className="text-sm mb-3">
