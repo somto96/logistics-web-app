@@ -7,7 +7,6 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { FiSettings } from "react-icons/fi";
 import { LuUsers } from "react-icons/lu";
 import UserProfileDropdown from "./UserProfileDropdown";
-// import { useSession } from "@/hooks/useSession";
 import { RxExit } from "react-icons/rx";
 import { AUTH_KEY } from "@/constants/cookie.config";
 import { deleteCookie } from "cookies-next";
@@ -25,7 +24,6 @@ const MobileDashboardSidebar: React.FC<any> = ()=>{
 
     // Hook
     const pathname = usePathname();
-    // const session = useSession()
     const { session, signOut } = useAuth()
     const router = useRouter()
 

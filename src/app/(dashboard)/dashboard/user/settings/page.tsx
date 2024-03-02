@@ -20,7 +20,6 @@ export default function UserSettings() {
 
     // Hooks
     const router = useRouter()
-    // const session = useSession();
     const { session, user } = useAuth()
 
     type RowHash = {
